@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'HomePageScreen.dart';
 
   class Registerscreen extends StatefulWidget {
   const Registerscreen({super.key, required this.title});
@@ -33,14 +33,24 @@ class _MyHomePageState extends State<Registerscreen> {
                     ),
                   )
               ),
+              Text(" Name :", style: TextStyle(fontSize: 20,color: Colors.indigo) ),
+              Container(
+                  width: 500,
+                  child: TextField(
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                      hintText: 'Enter Your Name',
+                    ),
+                  )
+              ),
               Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     ElevatedButton(onPressed: (){
-                      print('Register');
-                      Navigator.push(context, MaterialPageRoute(builder: (context) =>  Registerscreen(title: 'asd',)));
-                    },
-                      child: Text('Register'),),
+                    print('Register');
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => HomePageScreen(title: 'Home Page',)));
+                  },
+                    child: Text("Register",style: TextStyle(color: Colors.indigo),),),
                   ]
               ),
             ],
