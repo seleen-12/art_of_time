@@ -1,74 +1,46 @@
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(const MyApp());
-}
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.white10),
-        useMaterial3: true,
-
-      ),
-      debugShowCheckedModeBanner: false,
-      home: const MyHomePage(title: 'Log In Page'),
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
+  class Registerscreen extends StatefulWidget {
+  const Registerscreen({super.key, required this.title});
 
   final String title;
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<Registerscreen> createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _MyHomePageState extends State<Registerscreen> {
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
           backgroundColor:Colors.grey,
-          title: Text(widget.title),
+          title: Text("Register Page"),
         ),
         body: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Text("Phone Number Or Email : ", style: TextStyle(fontSize: 20,color: Colors.indigo) ),
+              Text("User Name :", style: TextStyle(fontSize: 20,color: Colors.indigo) ),
               Container(
                   width: 500,
                   child: TextField(
                     decoration: InputDecoration(
                       border: OutlineInputBorder(),
-                      hintText: 'Enter Your Phone Number Or Email',
-                    ),
-                  )
-              ),
-              Text("Password : ", style: TextStyle(fontSize: 20,color: Colors.indigo) ),
-              Container(
-                  width: 500,
-                  child: TextField(
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(),
-                      hintText: 'Enter Password',
+                      hintText: 'Enter Your User Name',
                     ),
                   )
               ),
               Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    ElevatedButton(onPressed: (){print('Register');},child: Text('Register'),), SizedBox(width:10,),
-                    ElevatedButton(onPressed: (){ Navigator.pushNamed(context,'Sign Up', ); print('Sign Up');},child: Text('Sign Up'),),
+                    ElevatedButton(onPressed: (){
+                      print('Register');
+                      Navigator.push(context, MaterialPageRoute(builder: (context) =>  Registerscreen(title: 'asd',)));
+                    },
+                      child: Text('Register'),),
                   ]
               ),
             ],

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'Views/RegisterScreen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -17,7 +18,7 @@ class MyApp extends StatelessWidget {
 
       ),
       debugShowCheckedModeBanner: false,
-      home: const MyHomePage(title: 'Log In Page'),
+      home: const MyHomePage(title: ''),
     );
   }
 }
@@ -67,8 +68,16 @@ class _MyHomePageState extends State<MyHomePage> {
               Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    ElevatedButton(onPressed: (){print('Register');},child: Text('Register'),), SizedBox(width:10,),
-                     ElevatedButton(onPressed: (){ Navigator.pushNamed(context,'Sign Up', ); print('Sign Up');},child: Text('Sign Up'),),
+                    ElevatedButton(onPressed: (){
+                        print('Log In');
+                        Navigator.push(context, MaterialPageRoute(builder: (context) =>  Registerscreen(title: 'Log In Page',)));
+                      },
+                      child: Text("Log In",style: TextStyle(color: Colors.indigo),),), SizedBox(width:10,),
+                    ElevatedButton(onPressed: (){
+                      print('Sign Up');
+                      Navigator.push(context, MaterialPageRoute(builder: (context) =>  Registerscreen(title: 'Log In Page',)));
+                    },
+                      child: Text("Sign Up",style: TextStyle(color: Colors.indigo),),),
                   ]
               ),
             ],
