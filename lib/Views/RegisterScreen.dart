@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'HomePageScreen.dart';
 
-  class Registerscreen extends StatefulWidget {
-  const Registerscreen({super.key, required this.title});
+  class RegisterScreen extends StatefulWidget {
+  const RegisterScreen({super.key, required this.title});
 
   final String title;
 
   @override
-  State<Registerscreen> createState() => _MyHomePageState();
+  State<RegisterScreen> createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<Registerscreen> {
+class _MyHomePageState extends State<RegisterScreen> {
 
   @override
   Widget build(BuildContext context) {
