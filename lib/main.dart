@@ -6,7 +6,7 @@ void main() {
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+ class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   @override
@@ -87,6 +87,25 @@ class _MyHomePageState extends State<MyHomePage> {
                       child: Text("Sign Up",style: TextStyle(color: Colors.indigo),),),
                   ]
               ),
+              // TextButton(
+              //   onPressed: () => showDialog<String>(
+              //     context: context,
+              //     builder: (BuildContext context) => AlertDialog(
+              //       title: const Text('AlertDialog Title'),
+              //       content: const Text('AlertDialog description'),
+              //       actions: <Widget>[
+              //         TextButton(
+              //           onPressed: () => Navigator.pop(context, 'Cancel'),
+              //           child: const Text('Cancel'),
+              //         ),
+              //         TextButton(
+              //           onPressed: () => Navigator.pop(context, 'OK'),
+              //           child: const Text('OK'),
+              //         ),
+              //       ],
+              //     ),
+              //   ),
+              //   child: Text("Log In",style: TextStyle(color: Colors.indigo),),), SizedBox(width:10,),
             ],
           ),
         ));

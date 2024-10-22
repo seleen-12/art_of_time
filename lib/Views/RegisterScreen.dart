@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'HomePageScreen.dart';
 
-const List<String> list = <String>['Student','Business Owner'];
+const List<String> list1 = <String>['Student','Business Owner'];
+const List<String> list2 = <String>['Female','Male'];
 
   class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key, required this.title});
@@ -14,6 +15,9 @@ const List<String> list = <String>['Student','Business Owner'];
 
 class RegisterPageState extends State<RegisterScreen> {
   // get selectedDate => null;
+
+final _txtUserName = TextEditingController();
+final _txtName = TextEditingController();
 
   DateTime? _selectedDate;
 
@@ -40,19 +44,6 @@ class RegisterPageState extends State<RegisterScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Text("User Name :",
-                  style: TextStyle(fontSize: 20, color: Colors.indigo)),
-
-              Container(
-                  width: 500,
-                  child: TextField(
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(),
-                      hintText: 'Enter Your User Name'
-                    ),
-                  )
-              ),
-              Text("     "),
 
               Text(" Name :",
                   style: TextStyle(fontSize: 20, color: Colors.indigo)),
@@ -82,17 +73,32 @@ class RegisterPageState extends State<RegisterScreen> {
               Text("     "),
 
               DropdownMenu<String>(
-              initialSelection: list.first,
+                initialSelection: list2.first,
+                onSelected: (String? value) {
+                  // This is called when the user selects an item.
+                  setState(() {
+                    var dropdownValue = value!;
+                  });
+                },
+                dropdownMenuEntries: list2.map<DropdownMenuEntry<String>>((String value) {
+                  return DropdownMenuEntry<String>(value: value, label: value);
+                }).toList(),
+              ),
+              Text("     "),
+
+              DropdownMenu<String>(
+              initialSelection: list1.first,
               onSelected: (String? value) {
                 // This is called when the user selects an item.
                 setState(() {
                   var dropdownValue = value!;
                 });
               },
-              dropdownMenuEntries: list.map<DropdownMenuEntry<String>>((String value) {
+              dropdownMenuEntries: list1.map<DropdownMenuEntry<String>>((String value) {
                 return DropdownMenuEntry<String>(value: value, label: value);
               }).toList(),
             ),
+              Text("     "),
               Text("     "),
               Text("     "),
 
