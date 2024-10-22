@@ -56,6 +56,9 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                   )
               ),
+              Text("     "),
+              Text("     "),
+
               Text("Password : ", style: TextStyle(fontSize: 20,color: Colors.indigo) ),
               Container(
                   width: 500,
@@ -66,6 +69,9 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                   )
               ),
+              Text("     "),
+              Text("     "),
+
               Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
