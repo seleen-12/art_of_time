@@ -1,3 +1,4 @@
+import 'package:art_of_time/Utils/DB.dart';
 import 'package:flutter/material.dart';
 import 'HomePageScreen.dart';
 
@@ -106,6 +107,7 @@ final _txtName = TextEditingController();
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     ElevatedButton(onPressed: () {
+                      insertUser("aa" ,"bb" ,"ss");
                       print('Register');
                       Navigator.push(context, MaterialPageRoute(
                           builder: (context) =>
