@@ -1,6 +1,7 @@
 import 'package:art_of_time/Utils/DB.dart';
 import 'package:flutter/material.dart';
 import 'HomePageScreen.dart';
+// import '../Utils/do.dart';
 
 const List<String> list1 = <String>['Student','Business Owner'];
 const List<String> list2 = <String>['Female','Male'];
@@ -17,8 +18,9 @@ const List<String> list2 = <String>['Female','Male'];
 class RegisterPageState extends State<RegisterScreen> {
   // get selectedDate => null;
 
-final _txtUserName = TextEditingController();
-final _txtName = TextEditingController();
+final _txtphoneNumberOrEmail=TextEditingController();
+final _txtpassword=TextEditingController();
+final _txtname=TextEditingController();
 
   DateTime? _selectedDate;
 

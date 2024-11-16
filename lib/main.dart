@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'Views/HomePageScreen.dart';
 import 'Views/RegisterScreen.dart';
+import 'Utils/Utils.dart';
 
 void main() {
   runApp(const MyApp());
 }
+
+final _txtUserName = TextEditingController();
+final _txtName = TextEditingController();
 
  class MyApp extends StatelessWidget {
   const MyApp({super.key});

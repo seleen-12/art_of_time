@@ -1,22 +1,30 @@
 import 'package:mysql1/mysql1.dart';
 
 var _conn;
+
 void main(){
   showUsers();
-  insertUser("aa","bb","dd");
+  insertUser("Seleen","123","Seleen");
 }
 
 
-// for(int i=0; i<100; 1++)
 
-Future<void> showUsers() async {
+
+Future<void> connectToDB() async {
   var settings = new ConnectionSettings(
-      host: 'localhost',
+      host: '10.0.2.2',
       port: 3306,
       user: 'root',
       db: 'seleen_12'
   );
   _conn = await MySqlConnection.connect(settings);
+}
+
+
+
+Future<void> showUsers() async {
+  connectToDB();
+
   // Query the database using a parameterized query
   var results = await _conn.query(
     'select * from users',);
@@ -27,27 +35,23 @@ Future<void> showUsers() async {
 
 
 
-
-
-Future<void> insertUser(String s, String x, String y) async {
-  var settings = new ConnectionSettings(
-      host: 'localhost',
-      port: 3306,
-      user: 'root',
-      db: 'seleen_12'
+Future<void> insertUser(firstName,LastName,Password) async {
+  var settings =new ConnectionSettings(
+    host: '10.0.2.2',
+    port: 3306,
+   user: 'root',
+    db: 'seleen_12'
   );
-  var conn = await MySqlConnection.connect(settings);
+  var conn =await MySqlConnection.connect(settings);
 
-  var result = await conn.query(
-      'insert into users (password,phoneNumberOrEmail,name) values (?, ?, ?)',
-      ['Bob', '123', 'momo']);
+  var result = await _conn.query(
+      'insert into users (firstName, password, lastName) values (?, ?, ?)',
+        [firstName, LastName, Password]);
   print('Inserted row id=${result.insertId}');
 
-
-
   //////////
-/*
 
+/*
   // Query the database using a parameterized query
   var results = await conn.query(
       'select * from users where userID = ?', [6]);  // [result.insertId]
@@ -64,9 +68,13 @@ Future<void> insertUser(String s, String x, String y) async {
   for (var row in results2) {
     print('Name: ${row[0]}, email: ${row[1]} age: ${row[2]}');
   }
- */
+*/
 
   // Finally, close the connection
-  await conn.close();
+  await _conn.close();
 
 }
+
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////
