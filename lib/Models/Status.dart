@@ -11,6 +11,7 @@ class Status{
     statusID: json ["statusID"],
     statusName: json ["statusName"],
   );
+
   Map<String,dynamic> toJson() => {
     "statusID":statusID,
     "statusName": statusName,

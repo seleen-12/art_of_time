@@ -7,8 +7,8 @@ void main() {
   runApp(const MyApp());
 }
 
-final _txtUserName = TextEditingController();
-final _txtName = TextEditingController();
+var _txtphoneNumberOrEmail=TextEditingController();
+var _txtpassword=TextEditingController();
 
  class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -54,28 +54,26 @@ class _MyHomePageState extends State<MyHomePage> {
               Container(
                   width: 500,
                   child: TextField(
+                    controller: _txtphoneNumberOrEmail,
                     decoration: InputDecoration(
                       border: OutlineInputBorder(),
                       hintText: 'Enter Your Phone Number Or Email',
                     ),
                   )
               ),
-              Text("     "),
-              Text("     "),
-
+              SizedBox(height: 70,),
               Text("Password : ", style: TextStyle(fontSize: 20,color: Colors.indigo) ),
               Container(
                   width: 500,
                   child: TextField(
+                    controller: _txtpassword,
                     decoration: InputDecoration(
                       border: OutlineInputBorder(),
                       hintText: 'Enter Password',
                     ),
                   )
               ),
-              Text("     "),
-              Text("     "),
-
+              SizedBox(height: 70,),
               Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [

@@ -3,37 +3,39 @@ import '../Models/User.dart';
 
 var _conn;
 
-Future<void> showUsers() async {
+Future<void> connectToDB() async {
   var settings = new ConnectionSettings(
       host: '10.0.2.2',
       port: 3306,
       user: 'root',
       db: 'seleen_12'
   );
+
   _conn = await MySqlConnection.connect(settings);
   // Query the database using a parameterized query
+}
+
+Future<void> showUsers() async {
+
+  connectToDB();
+
   var results = await _conn.query(
     'select * from users',);
   for (var row in results) {
     print('userID: ${row[0]}, firstName: ${row[1]} lastName: ${row[2]}');
   }
 }
+
 Future<void> insertUser(User user) async {
-  var settings =new ConnectionSettings(
-    host: '10.0.2.2',
-    port: 3306,
-   user: 'root',
-    db: 'seleen_12'
-  );
-  var conn =await MySqlConnection.connect(settings);
+
+  connectToDB();
 
   var result = await _conn.query(
-      'insert into users (firstName, password, lastName) values (?, ?, ?)',
-        [user.password, user.phoneNumberOrEmail, user.name]);
+      'insert into users (phoneNumberOrEmail, password, name) values (?, ?, ?)',
+        [user.phoneNumberOrEmail, user.password, user.name]);
   print('Inserted row id=${result.insertId}');
 
   //////////
-
 /*
   // Query the database using a parameterized query
   var results = await conn.query(
@@ -41,10 +43,8 @@ Future<void> insertUser(User user) async {
   for (var row in results) {
     print('Name: ${row[0]}, email: ${row[1]} age: ${row[2]}');
   }
-
   // Update some data
   await conn.query('update users set firstName=? where userID=?', ['Bob', 5]);
-
   // Query again database using a parameterized query
   var results2 = await conn.query(
       'select * from users where userID = ?', [result.insertId]);
@@ -52,12 +52,7 @@ Future<void> insertUser(User user) async {
     print('Name: ${row[0]}, email: ${row[1]} age: ${row[2]}');
   }
 */
-
   // Finally, close the connection
   await _conn.close();
-
 }
-
-
-
 ////////////////////////////////////////////////////////////////////////////////////////////////

@@ -5,7 +5,7 @@ class Task{
     this.howLong = 0,
     this.userID = 0,
     this.statusID = 0,
-  })
+  });
 
   int taskID;
   String taskName;
@@ -20,6 +20,7 @@ class Task{
     userID: json ["userID"],
     statusID: json ["statusID"],
   );
+
   Map<String,dynamic> toJson() => {
     "taskID":taskID,
     "taskName": taskName,
