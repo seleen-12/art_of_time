@@ -18,9 +18,9 @@ const List<String> list2 = <String>['Female','Male'];
 class RegisterPageState extends State<RegisterScreen> {
   // get selectedDate => null;
 
-final _txtphoneNumberOrEmail=TextEditingController();
-final _txtpassword=TextEditingController();
-final _txtname=TextEditingController();
+var _txtphoneNumberOrEmail=TextEditingController();
+var _txtpassword=TextEditingController();
+var _txtname=TextEditingController();
 
   DateTime? _selectedDate;
 

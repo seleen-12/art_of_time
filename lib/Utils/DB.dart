@@ -1,16 +1,9 @@
 import 'package:mysql1/mysql1.dart';
+import '../Models/User.dart';
 
 var _conn;
 
-void main(){
-  showUsers();
-  insertUser("Seleen","123","Seleen");
-}
-
-
-
-
-Future<void> connectToDB() async {
+Future<void> showUsers() async {
   var settings = new ConnectionSettings(
       host: '10.0.2.2',
       port: 3306,
@@ -18,13 +11,6 @@ Future<void> connectToDB() async {
       db: 'seleen_12'
   );
   _conn = await MySqlConnection.connect(settings);
-}
-
-
-
-Future<void> showUsers() async {
-  connectToDB();
-
   // Query the database using a parameterized query
   var results = await _conn.query(
     'select * from users',);
@@ -32,10 +18,7 @@ Future<void> showUsers() async {
     print('userID: ${row[0]}, firstName: ${row[1]} lastName: ${row[2]}');
   }
 }
-
-
-
-Future<void> insertUser(firstName,LastName,Password) async {
+Future<void> insertUser(User user) async {
   var settings =new ConnectionSettings(
     host: '10.0.2.2',
     port: 3306,
@@ -46,7 +29,7 @@ Future<void> insertUser(firstName,LastName,Password) async {
 
   var result = await _conn.query(
       'insert into users (firstName, password, lastName) values (?, ?, ?)',
-        [firstName, LastName, Password]);
+        [user.password, user.phoneNumberOrEmail, user.name]);
   print('Inserted row id=${result.insertId}');
 
   //////////
