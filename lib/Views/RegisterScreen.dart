@@ -53,7 +53,7 @@ class RegisterPageState extends State<RegisterScreen> {
     } else {
       var Uti2 = new Utils();
       Uti2.showMyDialog(
-          context, "Required", "please fill in name and birth date");
+          context, "REQUIRED", "You Must Fill The Unanswered Questions");
     }
   }
 
@@ -68,29 +68,18 @@ class RegisterPageState extends State<RegisterScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Text(" Name*:",
-                  style: TextStyle(fontSize: 20, color: Colors.indigo)),
+              Text("Name :", style: TextStyle(fontSize: 20,color: Colors.indigo) ),
+              SizedBox(height: 20,),
               Container(
-                  width: 500,
+                  width: 350,
                   child: TextField(
                     controller: _txtname,
                     decoration: InputDecoration(
                       border: OutlineInputBorder(),
-                      hintText: 'Enter Your Name',
+                      hintText: 'Enter Name',
                     ),
-                  )),
-              SizedBox(height: 70,),
-              Text("Phone or email*:",
-                  style: TextStyle(fontSize: 20, color: Colors.indigo)),
-              Container(
-                  width: 500,
-                  child: TextField(
-                    controller: _txtphoneNumberOrEmail,
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(),
-                      hintText: 'Phone or email',
-                    ),
-                  )),
+                  )
+              ),
               SizedBox(height: 70,),
               ElevatedButton(
                 onPressed: () => _selectDate(context),
@@ -99,7 +88,7 @@ class RegisterPageState extends State<RegisterScreen> {
               ),
               const SizedBox(height: 20),
               Text(
-                'Birth Date : ${_selectedDate != null ? _selectedDate.toString() : 'No date selected'}',
+                'Birth Date : ${_selectedDate != null ? _selectedDate.toString() : 'No Birth Date Selected'}',
                 style: const TextStyle(fontSize: 20, color: Colors.indigo),
               ),
               SizedBox(height: 70,),

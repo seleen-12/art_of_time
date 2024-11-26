@@ -20,7 +20,6 @@ var _txtpassword=TextEditingController();
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.white10),
         useMaterial3: true,
-
       ),
       debugShowCheckedModeBanner: false,
       home: const MyHomePage(title: ''),
@@ -50,22 +49,25 @@ class _MyHomePageState extends State<MyHomePage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Text("Phone Number Or Email : ", style: TextStyle(fontSize: 20,color: Colors.indigo) ),
+              Text("Phone Number Or Email :", style: TextStyle(fontSize: 20,color: Colors.indigo) ),
+              SizedBox(height: 20,),
               Container(
-                  width: 500,
+                  width: 350,
                   child: TextField(
                     controller: _txtphoneNumberOrEmail,
                     decoration: InputDecoration(
                       border: OutlineInputBorder(),
-                      hintText: 'Enter Your Phone Number Or Email',
+                      hintText: 'Enter Phone Number Or Email',
                     ),
                   )
               ),
               SizedBox(height: 70,),
-              Text("Password : ", style: TextStyle(fontSize: 20,color: Colors.indigo) ),
+              Text("Password :", style: TextStyle(fontSize: 20,color: Colors.indigo) ),
+              SizedBox(height: 20,),
               Container(
-                  width: 500,
+                  width: 350,
                   child: TextField(
+                    obscureText: true,
                     controller: _txtpassword,
                     decoration: InputDecoration(
                       border: OutlineInputBorder(),
