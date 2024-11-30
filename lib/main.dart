@@ -48,7 +48,7 @@ class _MyHomePageState extends State<MyHomePage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Text("Phone Number Or Email :", style: TextStyle(fontSize: 20,color: Colors.indigo) ),
+              Text("Phone Number :", style: TextStyle(fontSize: 20,color: Colors.indigo) ),
               SizedBox(height: 20,),
               Container(
                   width: 350,
@@ -56,7 +56,21 @@ class _MyHomePageState extends State<MyHomePage> {
                     controller: _txtphoneNumberOrEmail,
                     decoration: InputDecoration(
                       border: OutlineInputBorder(),
-                      hintText: 'Enter Phone Number Or Email',
+                      hintText: 'Enter Phone Number',
+                    ),
+                  )
+              ),
+              SizedBox(height: 70,),
+              Text("Email :", style: TextStyle(fontSize: 20,color: Colors.indigo) ),
+              SizedBox(height: 20,),
+              Container(
+                  width: 350,
+                  child: TextField(
+                    obscureText: true,
+                    controller: _txtpassword,
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                      hintText: 'Enter Email',
                     ),
                   )
               ),

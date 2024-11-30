@@ -7,7 +7,7 @@ import '../Utils/DB.dart';
 
 
 const List<String> list1 = <String>['1', '15' , '30','45','1h','1.5h'];
-const List<Color> list2 = <Color>[Colors.black];
+const List<String> list2 = <String>['Black', 'Red'];
 
 class NewTaskScreen extends StatefulWidget {
   const NewTaskScreen({super.key, required this.title});
@@ -101,7 +101,8 @@ class RegisterPageState extends State<NewTaskScreen> {
                 }).toList(),
               ),
 
-              Text("What color ?", style: TextStyle(fontSize: 20,color: Colors.indigo) ),
+              SizedBox(height: 250,),
+              Text("What Color ?", style: TextStyle(fontSize: 20,color: Colors.indigo) ),
               DropdownMenu<String>(
 //              color: _selectedColor,
                 initialSelection: list1.first,
@@ -118,11 +119,11 @@ class RegisterPageState extends State<NewTaskScreen> {
               ),
 
 
-              ElevatedButton(onPressed: (){
-                print('Create Task');
-                Navigator.push(context, MaterialPageRoute(builder: (context) =>  RegisterScreen(title: 'Log In Page',)));
-              },
-                child: Text("Sign Up",style: TextStyle(color: Colors.indigo),),),
+              // ElevatedButton(onPressed: (){
+              //   print('Create Task');
+              //   Navigator.push(context, MaterialPageRoute(builder: (context) =>  RegisterScreen(title: 'Log In Page',)));
+              // },
+              //   child: Text("Sign Up",style: TextStyle(color: Colors.indigo),),),
             ],
           ),
         ));

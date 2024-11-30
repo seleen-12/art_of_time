@@ -67,7 +67,7 @@ class RegisterPageState extends State<RegisterScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Text("Name :", style: TextStyle(fontSize: 20,color: Colors.indigo) ),
+              Text("Full Name :", style: TextStyle(fontSize: 20,color: Colors.indigo) ),
               SizedBox(height: 20,),
               Container(
                   width: 350,
@@ -75,7 +75,7 @@ class RegisterPageState extends State<RegisterScreen> {
                     controller: _txtname,
                     decoration: InputDecoration(
                       border: OutlineInputBorder(),
-                      hintText: 'Enter Name',
+                      hintText: 'Enter Full Name',
                     ),
                   )
               ),
