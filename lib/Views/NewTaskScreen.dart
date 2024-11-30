@@ -5,19 +5,20 @@ import 'HomePageScreen.dart';
 import '../Models/User.dart';
 import '../Utils/DB.dart';
 
-const List<String> list1 = <String>['Student', 'Business Owner'];
-const List<String> list2 = <String>['Female', 'Male'];
 
-class RegisterScreen extends StatefulWidget {
-  const RegisterScreen({super.key, required this.title});
+const List<String> list1 = <String>['1', '15' , '30','45','1h','1.5h'];
+const List<Color> list2 = <Color>[Colors.black];
+
+class NewTaskScreen extends StatefulWidget {
+  const NewTaskScreen({super.key, required this.title});
 
   final String title;
 
   @override
-  State<RegisterScreen> createState() => RegisterPageState();
+  State<NewTaskScreen> createState() => RegisterPageState();
 }
 
-class RegisterPageState extends State<RegisterScreen> {
+class RegisterPageState extends State<NewTaskScreen> {
   get selectedDate => null;
 
   var _txtname = TextEditingController();
@@ -25,6 +26,7 @@ class RegisterPageState extends State<RegisterScreen> {
   var _txtpassword = TextEditingController();
 
   DateTime? _selectedDate;
+  Color? _selectedColor = Colors.black;
 
   Future _selectDate(BuildContext context) async => showDatePicker(
         context: context,
@@ -61,51 +63,31 @@ class RegisterPageState extends State<RegisterScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
+          backgroundColor: Colors.grey,
           title: Text(widget.title),
         ),
         body: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Text("Name :", style: TextStyle(fontSize: 20,color: Colors.indigo) ),
+              Text("The Task :", style: TextStyle(fontSize: 20,color: Colors.indigo) ),
               SizedBox(height: 20,),
               Container(
                   width: 350,
                   child: TextField(
-                    controller: _txtname,
+                    controller: _txtphoneNumberOrEmail,
                     decoration: InputDecoration(
                       border: OutlineInputBorder(),
-                      hintText: 'Enter Name',
+                      hintText: 'Enter Your Task',
                     ),
                   )
               ),
-              SizedBox(height: 70,),
-              ElevatedButton(
-                onPressed: () => _selectDate(context),
-                child: const Text('Select Your Birth Date',
-                    style: TextStyle(color: Colors.indigo)),
-              ),
-              const SizedBox(height: 20),
-              Text(
-                'Birth Date : ${_selectedDate != null ? _selectedDate.toString() : 'No Birth Date Selected'}',
-                style: const TextStyle(fontSize: 20, color: Colors.indigo),
-              ),
-              SizedBox(height: 70,),
+              Text("When ?", style: TextStyle(fontSize: 20,color: Colors.indigo) ),
+
+              SizedBox(height: 250,),
+              Text("How Long ?", style: TextStyle(fontSize: 20,color: Colors.indigo) ),
               DropdownMenu<String>(
-                initialSelection: list2.first,
-                onSelected: (String? value) {
-                  // This is called when the user selects an item.
-                  setState(() {
-                    var dropdownValue = value!;
-                  });
-                },
-                dropdownMenuEntries:
-                    list2.map<DropdownMenuEntry<String>>((String value) {
-                  return DropdownMenuEntry<String>(value: value, label: value);
-                }).toList(),
-              ),
-              SizedBox(height: 70,),
-              DropdownMenu<String>(
+//              color: _selectedColor,
                 initialSelection: list1.first,
                 onSelected: (String? value) {
                   // This is called when the user selects an item.
@@ -114,22 +96,33 @@ class RegisterPageState extends State<RegisterScreen> {
                   });
                 },
                 dropdownMenuEntries:
-                    list1.map<DropdownMenuEntry<String>>((String value) {
+                list1.map<DropdownMenuEntry<String>>((String value) {
                   return DropdownMenuEntry<String>(value: value, label: value);
                 }).toList(),
               ),
-              SizedBox(height: 70,),
-              Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                ElevatedButton(
-                  onPressed: () {
-                    insertNewUserFunc();
-                  },
-                  child: Text(
-                    "Register",
-                    style: TextStyle(color: Colors.indigo),
-                  ),
-                ),
-              ]),
+
+              Text("What color ?", style: TextStyle(fontSize: 20,color: Colors.indigo) ),
+              DropdownMenu<String>(
+//              color: _selectedColor,
+                initialSelection: list1.first,
+                onSelected: (String? value) {
+                  // This is called when the user selects an item.
+                  setState(() {
+                    var dropdownValue = value!;
+                  });
+                },
+                dropdownMenuEntries:
+                list1.map<DropdownMenuEntry<String>>((String value) {
+                  return DropdownMenuEntry<String>(value: value, label: value);
+                }).toList(),
+              ),
+
+
+              ElevatedButton(onPressed: (){
+                print('Create Task');
+                Navigator.push(context, MaterialPageRoute(builder: (context) =>  RegisterScreen(title: 'Log In Page',)));
+              },
+                child: Text("Sign Up",style: TextStyle(color: Colors.indigo),),),
             ],
           ),
         ));

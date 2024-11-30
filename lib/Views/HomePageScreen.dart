@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'EditProfileScreen.dart';
+import 'NewTaskScreen.dart';
 
   class HomePageScreen extends StatefulWidget {
   const HomePageScreen({super.key, required this.title});
@@ -15,20 +16,15 @@ class HomePagePageState extends State<HomePageScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          backgroundColor:Colors.grey,
-          title: Text("Home Page"),
-        ),
         body: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-                ElevatedButton(onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(
-                      builder: (context) =>
-                          EditProfileScreen(title: 'Edit Profile Screen',)));
+                ElevatedButton(onPressed: (){
+                  print('+');
+                  Navigator.push(context, MaterialPageRoute(builder: (context) =>  NewTaskScreen(title: 'New Task',)));
                 },
-                  child: Icon(Icons.perm_identity_sharp, color: Colors.black87,),),
+                  child: Text("+",style: TextStyle(color: Colors.black),),),
             ],
           ),
         ));
