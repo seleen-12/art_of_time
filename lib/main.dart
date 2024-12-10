@@ -7,8 +7,9 @@ void main() {
   runApp(const MyApp());
 }
 
-var _txtphoneNumberOrEmail=TextEditingController();
-var _txtpassword=TextEditingController();
+var _txtphoneNumber = TextEditingController();
+var _txtpassword = TextEditingController();
+var _txtemail = TextEditingController();
 
  class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -53,7 +54,7 @@ class _MyHomePageState extends State<MyHomePage> {
               Container(
                   width: 350,
                   child: TextField(
-                    controller: _txtphoneNumberOrEmail,
+                    controller: _txtphoneNumber,
                     decoration: InputDecoration(
                       border: OutlineInputBorder(),
                       hintText: 'Enter Phone Number',
@@ -66,8 +67,7 @@ class _MyHomePageState extends State<MyHomePage> {
               Container(
                   width: 350,
                   child: TextField(
-                    obscureText: true,
-                    controller: _txtpassword,
+                    controller: _txtemail,
                     decoration: InputDecoration(
                       border: OutlineInputBorder(),
                       hintText: 'Enter Email',

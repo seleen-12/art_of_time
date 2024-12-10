@@ -20,9 +20,10 @@ class RegisterScreen extends StatefulWidget {
 class RegisterPageState extends State<RegisterScreen> {
   get selectedDate => null;
 
-  var _txtname = TextEditingController();
-  var _txtphoneNumberOrEmail = TextEditingController();
+  var _txtfullName = TextEditingController();
+  var _txtphoneNumber = TextEditingController();
   var _txtpassword = TextEditingController();
+  var _txtemail = TextEditingController();
 
   DateTime? _selectedDate;
 
@@ -38,18 +39,19 @@ class RegisterPageState extends State<RegisterScreen> {
       });
 
   void insertNewUserFunc() {
-    if (_txtname.text != "" && _selectedDate != null) {
+    if (_txtfullName.text != "" && _selectedDate != null) {
       User us = new User();
-      us.name = _txtname.text;
+      us.fullName  = _txtfullName .text;
       us.password = _txtpassword.text;
-      us.phoneNumberOrEmail = _txtphoneNumberOrEmail.text;
+      us.phoneNumber = _txtphoneNumber.text;
+      us.email = _txtemail.text;
       // us.userID=3;
       insertUser(us);
       print('Register');
       // Navigator.push(context, MaterialPageRoute(
       //     builder: (context) =>
       //         HomePageScreen(title: 'Home Page',)));
-      // context:Text(_txtname.text +"_"+ _txtpassword.text +""+ _txtphoneNumberOrEmail.text );
+      // context:Text(_txtfullName.text +"_"+ _txtpassword.text +""+ _txtphoneNumber.text +""+ _txtemail.text );
     } else {
       var Uti2 = new Utils();
       Uti2.showMyDialog(
@@ -72,7 +74,7 @@ class RegisterPageState extends State<RegisterScreen> {
               Container(
                   width: 350,
                   child: TextField(
-                    controller: _txtname,
+                    controller: _txtfullName,
                     decoration: InputDecoration(
                       border: OutlineInputBorder(),
                       hintText: 'Enter Full Name',
