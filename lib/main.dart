@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'Models/User.dart';
+import 'Utils/DB.dart';
 import 'Views/HomePageScreen.dart';
 import 'Views/RegisterScreen.dart';
 import 'Utils/Utils.dart';
@@ -49,7 +51,8 @@ class _MyHomePageState extends State<MyHomePage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Text("Phone Number :", style: TextStyle(fontSize: 20,color: Colors.indigo) ),
+              Text("Phone Number :",
+                  style: TextStyle(fontSize: 20, color: Colors.indigo)),
               SizedBox(height: 20,),
               Container(
                   width: 350,
@@ -62,7 +65,8 @@ class _MyHomePageState extends State<MyHomePage> {
                   )
               ),
               SizedBox(height: 70,),
-              Text("Email :", style: TextStyle(fontSize: 20,color: Colors.indigo) ),
+              Text("Email :",
+                  style: TextStyle(fontSize: 20, color: Colors.indigo)),
               SizedBox(height: 20,),
               Container(
                   width: 350,
@@ -75,7 +79,8 @@ class _MyHomePageState extends State<MyHomePage> {
                   )
               ),
               SizedBox(height: 70,),
-              Text("Password :", style: TextStyle(fontSize: 20,color: Colors.indigo) ),
+              Text("Password :",
+                  style: TextStyle(fontSize: 20, color: Colors.indigo)),
               SizedBox(height: 20,),
               Container(
                   width: 350,
@@ -92,16 +97,23 @@ class _MyHomePageState extends State<MyHomePage> {
               Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    ElevatedButton(onPressed: (){
-                      print('Log In');
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => HomePageScreen(title: 'Home Page',)));
-                    },
-                      child: Text("Log In",style: TextStyle(color: Colors.indigo),),), SizedBox(width:10,),
-                    ElevatedButton(onPressed: (){
-                      print('Sign Up');
-                      Navigator.push(context, MaterialPageRoute(builder: (context) =>  RegisterScreen(title: 'Log In Page',)));
-                    },
-                      child: Text("Sign Up",style: TextStyle(color: Colors.indigo),),),
+                    ElevatedButton(
+                      onPressed: () {
+                        Navigator.push(context, MaterialPageRoute(
+                            builder: (context) =>
+                                HomePageScreen(title: 'Home Page',)));
+                      },
+                      child: Text(
+                        "Log In", style: TextStyle(color: Colors.indigo),),),
+                    SizedBox(width: 10,),
+                    ElevatedButton(
+                      onPressed: () {
+                        Navigator.push(context, MaterialPageRoute(
+                            builder: (context) =>
+                                RegisterScreen(title: 'Register Page',)));
+                      },
+                      child: Text(
+                        "Sign Up", style: TextStyle(color: Colors.indigo),),),
                   ]
               ),
               // TextButton(

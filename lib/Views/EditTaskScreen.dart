@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 
 
-class EditProfileScreen extends StatefulWidget {
-  const EditProfileScreen({super.key, required this.title});
+class EditTaskScreen extends StatefulWidget {
+  const EditTaskScreen({super.key, required this.title});
 
   final String title;
 
   @override
-  State<EditProfileScreen> createState() => HomePagePageState();
+  State<EditTaskScreen> createState() => HomePagePageState();
 }
 
-class HomePagePageState extends State<EditProfileScreen> {
+class HomePagePageState extends State<EditTaskScreen> {
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +22,7 @@ class HomePagePageState extends State<EditProfileScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Text("Edit Profile")
+              Text("Edit Task")
             ],
           ),
         ));

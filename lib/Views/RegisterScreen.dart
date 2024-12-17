@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import '../Utils/Utils.dart';
 import 'HomePageScreen.dart';
 import '../Models/User.dart';
-import '../Utils/DB.dart';
 
 const List<String> list1 = <String>['Student', 'Business Owner'];
 const List<String> list2 = <String>['Female', 'Male'];
+const List<String> list3 = <String>['Islam', 'Hinduism', 'Christianity','Druze','Judaism'];
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key, required this.title});
@@ -52,6 +52,7 @@ class RegisterPageState extends State<RegisterScreen> {
       //     builder: (context) =>
       //         HomePageScreen(title: 'Home Page',)));
       // context:Text(_txtfullName.text +"_"+ _txtpassword.text +""+ _txtphoneNumber.text +""+ _txtemail.text );
+      Navigator.push(context, MaterialPageRoute(builder: (context) =>  HomePageScreen(title: 'Home Page',)));
     } else {
       var Uti2 = new Utils();
       Uti2.showMyDialog(
@@ -117,6 +118,20 @@ class RegisterPageState extends State<RegisterScreen> {
                 },
                 dropdownMenuEntries:
                     list1.map<DropdownMenuEntry<String>>((String value) {
+                  return DropdownMenuEntry<String>(value: value, label: value);
+                }).toList(),
+              ),
+              SizedBox(height: 70,),
+              DropdownMenu<String>(
+                initialSelection: list3.first,
+                onSelected: (String? value) {
+                  // This is called when the user selects an item.
+                  setState(() {
+                    var dropdownValue = value!;
+                  });
+                },
+                dropdownMenuEntries:
+                list3.map<DropdownMenuEntry<String>>((String value) {
                   return DropdownMenuEntry<String>(value: value, label: value);
                 }).toList(),
               ),

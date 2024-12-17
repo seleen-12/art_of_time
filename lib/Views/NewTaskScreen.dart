@@ -2,6 +2,7 @@ import 'package:art_of_time/Utils/DB.dart';
 import 'package:flutter/material.dart';
 import '../Models/Task.dart';
 import '../Utils/Utils.dart';
+import 'EditTaskScreen.dart';
 
 const List<int> list = <int>[1,5,10,15,30,45,60];
 
@@ -44,7 +45,6 @@ class RegisterPageState extends State<NewTaskScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.grey,
           title: Text(widget.title),
         ),
         body: Center(
@@ -98,7 +98,7 @@ class RegisterPageState extends State<NewTaskScreen> {
               SizedBox(width:25,),
               ElevatedButton(onPressed: (){
                 print('Edit');
-                Navigator.push(context, MaterialPageRoute(builder: (context) => EditTask(title: 'Edit Task',)));
+                Navigator.push(context, MaterialPageRoute(builder: (context) => EditTaskScreen(title: 'Edit Task',)));
               },
                 child: Text("Edit",style: TextStyle(color: Colors.indigo),),), SizedBox(width:10,),
               // ElevatedButton(onPressed: (){

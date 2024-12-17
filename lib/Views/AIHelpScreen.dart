@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
 
-
-class EditProfileScreen extends StatefulWidget {
-  const EditProfileScreen({super.key, required this.title});
+class AIHelpScreen extends StatefulWidget {
+  const AIHelpScreen({super.key, required this.title});
 
   final String title;
 
   @override
-  State<EditProfileScreen> createState() => HomePagePageState();
+  State<AIHelpScreen> createState() => HomePagePageState();
 }
 
-class HomePagePageState extends State<EditProfileScreen> {
+class HomePagePageState extends State<AIHelpScreen> {
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +21,7 @@ class HomePagePageState extends State<EditProfileScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Text("Edit Profile")
+              Text("AI Help")
             ],
           ),
         ));
