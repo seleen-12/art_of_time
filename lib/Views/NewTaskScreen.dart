@@ -95,7 +95,12 @@ class RegisterPageState extends State<NewTaskScreen> {
                   ),
                 ),
               ]),
-
+              SizedBox(width:25,),
+              ElevatedButton(onPressed: (){
+                print('Edit');
+                Navigator.push(context, MaterialPageRoute(builder: (context) => EditTask(title: 'Edit Task',)));
+              },
+                child: Text("Edit",style: TextStyle(color: Colors.indigo),),), SizedBox(width:10,),
               // ElevatedButton(onPressed: (){
               //   print('Create Task');
               //   Navigator.push(context, MaterialPageRoute(builder: (context) =>  RegisterScreen(title: 'Log In Page',)));
