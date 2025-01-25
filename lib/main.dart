@@ -41,6 +41,26 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
 
+  void checkLogin() {
+    if (_txtphoneNumber.text != "" &&_txtpassword.text != "" ) {
+      User us = new User();
+      us.password = _txtpassword.text;
+      us.phoneNumber = _txtphoneNumber.text;
+      // us.userID=3;
+      checkLogin();
+      print('checkLogin');
+      // Navigator.push(context, MaterialPageRoute(
+      //     builder: (context) =>
+      //         HomePageScreen(title: 'Home Page',)));
+      // context:Text(_txtfullName.text +"_"+ _txtpassword.text +""+ _txtphoneNumber.text +""+ _txtemail.text );
+      Navigator.push(context, MaterialPageRoute(builder: (context) =>  HomePageScreen(title: 'Home Page',)));
+    } else {
+      var Uti2 = new Utils();
+      Uti2.showMyDialog(
+          context, "REQUIRED", "You Must Fill The Unanswered Questions");
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -99,9 +119,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   children: [
                     ElevatedButton(
                       onPressed: () {
-                        Navigator.push(context, MaterialPageRoute(
-                            builder: (context) =>
-                                HomePageScreen(title: 'Home Page',)));
+                        checkLogin();
                       },
                       child: Text(
                         "Log In", style: TextStyle(color: Colors.indigo),),),

@@ -71,4 +71,18 @@ Future<void> insertTask(Task task) async {
   // Finally, close the connection
   await _conn.close();
 }
+
+
+Future<User> checkLogin(User user) async {
+
+  connectToDB();
+
+  var result = await _conn.query(
+      'select * from users where  phoneNumber=? and password= ?', [user.phoneNumber, user.password]);
+  // print('Inserted row insertTask id=${result.insertId}');
+  // Finally, close the connection
+  await _conn.close();
+  return result;
+
+}
 ////////////////////////////////////////////////////////////////////////////////////////////////
