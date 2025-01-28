@@ -21,6 +21,18 @@ class RegisterPageState extends State<NewTaskScreen> {
   var _txttaskName = TextEditingController();
   var _txthowLong = TextEditingController();
 
+  DateTime? _selectedDate;
+
+  Future _selectDate(BuildContext context) async => showDatePicker(
+    context: context,
+    initialDate: DateTime.now(),
+    firstDate: DateTime(2000),
+    lastDate: DateTime(2050),
+  ).then((DateTime? selected) {
+    if (selected != null && selected != _selectedDate) {
+      setState(() => _selectedDate = selected);
+    }
+  });
 
   void insertNewUserFunc() {
     if (_txttaskName.text != "" && _txthowLong.text != 0) {
@@ -64,11 +76,41 @@ class RegisterPageState extends State<NewTaskScreen> {
               ),
               SizedBox(height: 30,),
               Text("When ?", style: TextStyle(fontSize: 20,color: Colors.indigo) ),
-
-              SizedBox(height: 250,),
+              SizedBox(height: 10,),
+              ElevatedButton(
+                onPressed: () => _selectDate(context),
+                style: ElevatedButton.styleFrom(minimumSize: Size(350,50)
+                ),
+                    child: const Text('Select Your Task Date',
+                    style: TextStyle(color: Colors.indigo)),
+              ),
+              const SizedBox(height: 10),
+              Text(
+                'Task Date : ${_selectedDate != null ? _selectedDate.toString() : 'No Task Date Selected'}',
+                style: const TextStyle(fontSize: 20, color: Colors.indigo),
+              ),
+              SizedBox(height: 10,),
+              ElevatedButton(
+                onPressed: () async {
+                  TimeOfDay? picked = await showTimePicker(
+                    context: context,
+                    initialTime: TimeOfDay.now(),
+                  );
+                  if (picked != null) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text('Picked Time: ${picked.format(context)}',style: TextStyle(color: Colors.indigo),)),
+                    );
+                  }
+                },
+                style: ElevatedButton.styleFrom(minimumSize: Size(350,50),
+              ),
+                child: Text('Choose Task Time', style: const TextStyle( color: Colors.indigo),),
+              ),
+              SizedBox(height: 30,),
               Text("How Long ?", style: TextStyle(fontSize: 20,color: Colors.indigo) ),
               SizedBox(height: 20,),
               DropdownMenu<int>(
+                width: 350,
 //              color: _selectedColor,
                 initialSelection: list.first,
                 onSelected: (int? value) {

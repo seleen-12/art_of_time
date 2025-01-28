@@ -71,20 +71,6 @@ class _MyHomePageState extends State<MyHomePage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Text("Phone Number :",
-                  style: TextStyle(fontSize: 20, color: Colors.indigo)),
-              SizedBox(height: 20,),
-              Container(
-                  width: 350,
-                  child: TextField(
-                    controller: _txtphoneNumber,
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(),
-                      hintText: 'Enter Phone Number',
-                    ),
-                  )
-              ),
-              SizedBox(height: 70,),
               Text("Email :",
                   style: TextStyle(fontSize: 20, color: Colors.indigo)),
               SizedBox(height: 20,),
@@ -98,7 +84,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                   )
               ),
-              SizedBox(height: 70,),
+              SizedBox(height: 40,),
               Text("Password :",
                   style: TextStyle(fontSize: 20, color: Colors.indigo)),
               SizedBox(height: 20,),
@@ -113,25 +99,31 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                   )
               ),
-              SizedBox(height: 70,),
-              Row(
+              SizedBox(height: 40,),
+              Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     ElevatedButton(
                       onPressed: () {
-                        checkLogin();
+                          Navigator.push(context, MaterialPageRoute(
+                              builder: (context) =>
+                              HomePageScreen(title: 'Home Page',)));
                       },
+                      style: ElevatedButton.styleFrom(minimumSize: Size(350,50)
+                      ),
                       child: Text(
-                        "Log In", style: TextStyle(color: Colors.indigo),),),
-                    SizedBox(width: 10,),
+                        "Log In", style: TextStyle(color: Colors.indigo, fontSize: 18),),),
+                    SizedBox(height: 10,),
                     ElevatedButton(
                       onPressed: () {
                         Navigator.push(context, MaterialPageRoute(
                             builder: (context) =>
                                 RegisterScreen(title: 'Register Page',)));
                       },
-                      child: Text(
-                        "Sign Up", style: TextStyle(color: Colors.indigo),),),
+                      style: ElevatedButton.styleFrom(backgroundColor: Colors.transparent, shadowColor: Colors.transparent,),
+                        child:
+                      Text(
+                        "Sign Up", style: TextStyle(color: Colors.black),),),
                   ]
               ),
               // TextButton(

@@ -71,7 +71,7 @@ class RegisterPageState extends State<RegisterScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Text("Full Name :", style: TextStyle(fontSize: 20,color: Colors.indigo) ),
-              SizedBox(height: 20,),
+              SizedBox(height: 30,),
               Container(
                   width: 350,
                   child: TextField(
@@ -82,7 +82,7 @@ class RegisterPageState extends State<RegisterScreen> {
                     ),
                   )
               ),
-              SizedBox(height: 70,),
+              SizedBox(height: 30,),
               ElevatedButton(
                 onPressed: () => _selectDate(context),
                 child: const Text('Select Your Birth Date',
@@ -93,8 +93,9 @@ class RegisterPageState extends State<RegisterScreen> {
                 'Birth Date : ${_selectedDate != null ? _selectedDate.toString() : 'No Birth Date Selected'}',
                 style: const TextStyle(fontSize: 20, color: Colors.indigo),
               ),
-              SizedBox(height: 70,),
+              SizedBox(height: 30,),
               DropdownMenu<String>(
+                width: 350,
                 initialSelection: list2.first,
                 onSelected: (String? value) {
                   // This is called when the user selects an item.
@@ -107,8 +108,9 @@ class RegisterPageState extends State<RegisterScreen> {
                   return DropdownMenuEntry<String>(value: value, label: value);
                 }).toList(),
               ),
-              SizedBox(height: 70,),
+              SizedBox(height: 30,),
               DropdownMenu<String>(
+                width: 350,
                 initialSelection: list1.first,
                 onSelected: (String? value) {
                   // This is called when the user selects an item.
@@ -121,8 +123,9 @@ class RegisterPageState extends State<RegisterScreen> {
                   return DropdownMenuEntry<String>(value: value, label: value);
                 }).toList(),
               ),
-              SizedBox(height: 70,),
+              SizedBox(height: 30,),
               DropdownMenu<String>(
+                width: 350,
                 initialSelection: list3.first,
                 onSelected: (String? value) {
                   // This is called when the user selects an item.
@@ -135,7 +138,7 @@ class RegisterPageState extends State<RegisterScreen> {
                   return DropdownMenuEntry<String>(value: value, label: value);
                 }).toList(),
               ),
-              SizedBox(height: 70,),
+              SizedBox(height: 30,),
               Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                 ElevatedButton(
                   onPressed: () {
