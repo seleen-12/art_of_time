@@ -18,9 +18,6 @@ class NewTaskScreen extends StatefulWidget {
 class RegisterPageState extends State<NewTaskScreen> {
   get selectedDate => null;
 
-  var _txttaskName = TextEditingController();
-  var _txthowLong = TextEditingController();
-
   DateTime? _selectedDate;
 
   Future _selectDate(BuildContext context) async => showDatePicker(
@@ -33,25 +30,6 @@ class RegisterPageState extends State<NewTaskScreen> {
       setState(() => _selectedDate = selected);
     }
   });
-
-  void insertNewUserFunc() {
-    if (_txttaskName.text != "" && _txthowLong.text != 0) {
-      Task ts = new Task();
-      ts.taskName  = _txttaskName.text;
-      ts.howLong = list.first;
-      // us.userID=3;
-      insertTask(ts);
-      print('Register');
-      // Navigator.push(context, MaterialPageRoute(
-      //     builder: (context) =>
-      //         HomePageScreen(title: 'Home Page',)));
-      // context:Text(_txttaskName.text +"_"+ _txthowLong.text );
-    } else {
-      var Uti2 = new Utils();
-      Uti2.showMyDialog(
-          context, "REQUIRED", "You Must Fill The Unanswered Questions");
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -84,12 +62,12 @@ class RegisterPageState extends State<NewTaskScreen> {
                     child: const Text('Select Your Task Date',
                     style: TextStyle(color: Colors.indigo)),
               ),
-              const SizedBox(height: 10),
+              const SizedBox(height: 20),
               Text(
                 'Task Date : ${_selectedDate != null ? _selectedDate.toString() : 'No Task Date Selected'}',
                 style: const TextStyle(fontSize: 20, color: Colors.indigo),
               ),
-              SizedBox(height: 10,),
+              SizedBox(height: 20,),
               ElevatedButton(
                 onPressed: () async {
                   TimeOfDay? picked = await showTimePicker(
@@ -129,7 +107,6 @@ class RegisterPageState extends State<NewTaskScreen> {
               Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                 ElevatedButton(
                   onPressed: () {
-                    insertNewUserFunc();
                   },
                   child: Text(
                     "Create Task",

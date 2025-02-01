@@ -10,10 +10,10 @@ class HelpPageScreen extends StatefulWidget {
   final String title;
 
   @override
-  State<HelpPageScreen> createState() => HomePagePageState();
+  State<HelpPageScreen> createState() => HelpPageScreenState();
 }
 
-class HomePagePageState extends State<HelpPageScreen> {
+class HelpPageScreenState extends State<HelpPageScreen> {
 
   @override
   Widget build(BuildContext context) {
