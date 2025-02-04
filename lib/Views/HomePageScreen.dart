@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:art_of_time/Utils/DB.dart';
-import '../Models/Task.dart';
-import '../Utils/Utils.dart';
 import 'EditProfileScreen.dart';
 import 'EditTaskScreen.dart';
 import 'HelpPageScreen.dart';
-import 'NewTaskScreen.dart';
 
 const List<int> list = <int>[1, 5, 10, 15, 30, 45, 60];
 
@@ -29,13 +25,11 @@ class HomePagePageState extends State<HomePageScreen> {
     _updateCalendar(_currentMonth);
   }
 
-  // حساب الأيام في الشهر الحالي
   void _updateCalendar(DateTime date) {
     _daysInMonth = DateTime(date.year, date.month + 1, 0).day;
     _firstDayOfMonth = DateTime(date.year, date.month, 1).weekday;
   }
 
-  // تغيير الشهر للأمام أو للخلف
   void _changeMonth(int delta) {
     setState(() {
       _currentMonth = DateTime(_currentMonth.year, _currentMonth.month + delta, 1);
@@ -43,21 +37,17 @@ class HomePagePageState extends State<HomePageScreen> {
     });
   }
 
-  // بناء الأيام في الشبكة
   List<Widget> _buildDaysGrid() {
     List<Widget> dayWidgets = [];
 
-    // إضافة خلايا فارغة قبل بداية الشهر
     for (int i = 0; i < _firstDayOfMonth - 1; i++) {
       dayWidgets.add(Container());
     }
 
-    // إضافة الأيام الفعلية في الشهر
     for (int day = 1; day <= _daysInMonth; day++) {
       dayWidgets.add(
         GestureDetector(
           onTap: () {
-            // عند الضغط على يوم معين، افتح صفحة جديدة لعرض التاريخ
             Navigator.push(
               context,
               MaterialPageRoute(
@@ -120,8 +110,6 @@ class HomePagePageState extends State<HomePageScreen> {
             child: Icon(Icons.account_circle_rounded),
           ),
           SizedBox(height: 50),
-
-          // عرض التقويم
           Padding(
             padding: const EdgeInsets.all(16.0),
             child: Text(
@@ -155,12 +143,11 @@ class HomePagePageState extends State<HomePageScreen> {
             ],
           ),
           SizedBox(height: 10),
-          // استخدام Expanded لتجنب مشاكل التمرير
           Expanded(
             child: GridView.count(
               crossAxisCount: 7,
-              shrinkWrap: true, // Prevent overflow in the grid
-              physics: NeverScrollableScrollPhysics(), // Prevent scrolling
+              shrinkWrap: true,
+              physics: NeverScrollableScrollPhysics(),
               children: _buildDaysGrid(),
             ),
           ),
@@ -170,11 +157,23 @@ class HomePagePageState extends State<HomePageScreen> {
   }
 }
 
-// صفحة لعرض التفاصيل عند الضغط على يوم من الأيام
-class DateDetailScreen extends StatelessWidget {
+class DateDetailScreen extends StatefulWidget {
   final DateTime selectedDate;
 
   DateDetailScreen({required this.selectedDate});
+
+  @override
+  _DateDetailScreenState createState() => _DateDetailScreenState();
+}
+
+class _DateDetailScreenState extends State<DateDetailScreen> {
+  List<Task> tasks = [];
+
+  void _addTask(Task newTask) {
+    setState(() {
+      tasks.add(newTask);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -187,23 +186,39 @@ class DateDetailScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
             Text(
-              '${selectedDate.day}/${selectedDate.month}/${selectedDate.year}',
+              '${widget.selectedDate.day}/${widget.selectedDate.month}/${widget.selectedDate.year}',
               style: TextStyle(fontSize: 30),
             ),
             SizedBox(height: 20),
             ElevatedButton(
-              onPressed: () {
-                Navigator.push(
+              onPressed: () async {
+                final newTask = await Navigator.push(
                   context,
                   MaterialPageRoute(
                     builder: (context) => NewTaskScreen(
                       title: 'Create New Task',
-                      selectedDate: selectedDate,
+                      selectedDate: widget.selectedDate,
                     ),
                   ),
                 );
+
+                if (newTask != null) {
+                  _addTask(newTask);
+                }
               },
               child: Text("+", style: TextStyle(color: Colors.black)),
+            ),
+            SizedBox(height: 20),
+            Expanded(
+              child: ListView.builder(
+                itemCount: tasks.length,
+                itemBuilder: (context, index) {
+                  return ListTile(
+                    title: Text(tasks[index].taskName),
+                    subtitle: Text('Date: ${tasks[index].taskDate.toString()}'),
+                  );
+                },
+              ),
             ),
           ],
         ),
@@ -224,11 +239,12 @@ class NewTaskScreen extends StatefulWidget {
 
 class RegisterPageState extends State<NewTaskScreen> {
   DateTime? _selectedDate;
+  final TextEditingController _taskController = TextEditingController();
 
   @override
   void initState() {
     super.initState();
-    _selectedDate = widget.selectedDate ?? DateTime.now(); // إذا لم يكن هناك تاريخ محدد، استخدم التاريخ الحالي
+    _selectedDate = widget.selectedDate ?? DateTime.now();
   }
 
   Future _selectDate(BuildContext context) async => showDatePicker(
@@ -257,6 +273,7 @@ class RegisterPageState extends State<NewTaskScreen> {
             Container(
               width: 350,
               child: TextField(
+                controller: _taskController,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
                   hintText: 'Enter Your Task',
@@ -310,7 +327,15 @@ class RegisterPageState extends State<NewTaskScreen> {
             SizedBox(height: 30),
             Row(mainAxisAlignment: MainAxisAlignment.center, children: [
               ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  if (_taskController.text.isNotEmpty && _selectedDate != null) {
+                    Task newTask = Task(
+                      taskName: _taskController.text,
+                      taskDate: _selectedDate!,
+                    );
+                    Navigator.pop(context, newTask);
+                  }
+                },
                 child: Text(
                   "Create Task",
                   style: TextStyle(color: Colors.indigo),
@@ -333,4 +358,11 @@ class RegisterPageState extends State<NewTaskScreen> {
       ),
     );
   }
+}
+
+class Task {
+  final String taskName;
+  final DateTime taskDate;
+
+  Task({required this.taskName, required this.taskDate});
 }
