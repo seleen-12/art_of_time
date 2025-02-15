@@ -12,7 +12,7 @@ var _txtphoneNumber = TextEditingController();
 var _txtpassword = TextEditingController();
 var _txtemail = TextEditingController();
 
- class MyApp extends StatelessWidget {
+class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   @override
@@ -104,9 +104,9 @@ class _MyHomePageState extends State<MyHomePage> {
                   children: [
                     ElevatedButton(
                       onPressed: () {
-                          Navigator.push(context, MaterialPageRoute(
-                              builder: (context) =>
-                              HomePageScreen(title: 'Home Page',)));
+                        Navigator.push(context, MaterialPageRoute(
+                            builder: (context) =>
+                                HomePageScreen(title: 'Home Page',)));
                       },
                       style: ElevatedButton.styleFrom(minimumSize: Size(350,50)
                       ),
@@ -120,30 +120,11 @@ class _MyHomePageState extends State<MyHomePage> {
                                 RegisterScreen(title: 'Register Page',)));
                       },
                       style: ElevatedButton.styleFrom(backgroundColor: Colors.transparent, shadowColor: Colors.transparent,),
-                        child:
+                      child:
                       Text(
                         "Sign Up", style: TextStyle(color: Colors.black),),),
                   ]
               ),
-              // TextButton(
-              //   onPressed: () => showDialog<String>(
-              //     context: context,
-              //     builder: (BuildContext context) => AlertDialog(
-              //       title: const Text('AlertDialog Title'),
-              //       content: const Text('AlertDialog description'),
-              //       actions: <Widget>[
-              //         TextButton(
-              //           onPressed: () => Navigator.pop(context, 'Cancel'),
-              //           child: const Text('Cancel'),
-              //         ),
-              //         TextButton(
-              //           onPressed: () => Navigator.pop(context, 'OK'),
-              //           child: const Text('OK'),
-              //         ),
-              //       ],
-              //     ),
-              //   ),
-              //   child: Text("Log In",style: TextStyle(color: Colors.indigo),),), SizedBox(width:10,),
             ],
           ),
         ));

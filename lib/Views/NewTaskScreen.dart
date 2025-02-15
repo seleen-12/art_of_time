@@ -14,6 +14,7 @@ class NewTaskScreen extends StatefulWidget {
 
 class RegisterPageState extends State<NewTaskScreen> {
   DateTime? _selectedDate;
+
   final TextEditingController _taskController = TextEditingController();
   TimeOfDay? _taskTime;
   int? _duration;
@@ -102,7 +103,7 @@ class RegisterPageState extends State<NewTaskScreen> {
               }).toList(),
             ),
             SizedBox(height: 30),
-            Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+            Column(mainAxisAlignment: MainAxisAlignment.center, children: [
               ElevatedButton(
                 onPressed: () {
                   if (_taskController.text.isNotEmpty && _selectedDate != null) {
@@ -120,6 +121,14 @@ class RegisterPageState extends State<NewTaskScreen> {
                   style: TextStyle(color: Colors.indigo),
                 ),
               ),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.push(context, MaterialPageRoute(
+                      builder: (context) =>
+                          EditTaskScreen(title: 'Edit Task',)));
+                },
+                child: Text(
+                  "Edit",style: TextStyle(color: Colors.indigo),),)
             ]),
           ],
         ),
@@ -133,7 +142,6 @@ class Task {
   final DateTime taskDate;
   final String? taskTime;
   final int? duration;
-
   Task({
     required this.taskName,
     required this.taskDate,

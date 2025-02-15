@@ -214,7 +214,7 @@ class _DateDetailScreenState extends State<DateDetailScreen> {
                 itemCount: tasks.length,
                 itemBuilder: (context, index) {
                   return ListTile(
-                    title: Text(tasks[index].taskName),
+                    title: Text('Task ${index + 1}: ${tasks[index].taskName}'),  // إضافة الرقم التسلسلي هنا
                     subtitle: Text(
                         'Date: ${tasks[index].taskDate.toString()} | Time: ${tasks[index].taskTime ?? "Not Set"} | Duration: ${tasks[index].duration != null ? "${tasks[index].duration} min" : "Not Set"}'),
                   );
@@ -227,4 +227,3 @@ class _DateDetailScreenState extends State<DateDetailScreen> {
     );
   }
 }
-
