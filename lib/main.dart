@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'Models/User.dart';
-import 'Utils/DB.dart';
 import 'Views/HomePageScreen.dart';
 import 'Views/RegisterScreen.dart';
 import 'Utils/Utils.dart';

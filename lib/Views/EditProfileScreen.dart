@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../Models/User.dart';
 import '../Utils/DB.dart';
 import '../Utils/Utils.dart';
