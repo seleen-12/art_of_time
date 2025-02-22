@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'Models/User.dart';
 import 'Views/HomePageScreen.dart';
@@ -60,8 +62,27 @@ class _MyHomePageState extends State<MyHomePage> {
     }
   }
 
+
+  checkConction() async {
+    try {
+      final result = await InternetAddress.lookup('google.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+        // print('connected to internet');// print(result);// return 1;
+      }
+    } on SocketException catch (_) {
+      // print('not connected to internet');// print(result);
+      var uti = new Utils();
+      uti.showMyDialog(context, "אין אינטרנט", "האפליקציה דורשת חיבור לאינטרנט, נא להתחבר בבקשה");
+      return;
+    }
+  }
+
+
   @override
   Widget build(BuildContext context) {
+
+    checkConction();
+
     return Scaffold(
         appBar: AppBar(
           title: Text(widget.title),

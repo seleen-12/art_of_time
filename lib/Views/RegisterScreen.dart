@@ -1,8 +1,12 @@
-import 'package:art_of_time/Utils/DB.dart';
+// import 'package:art_of_time/Utils/DB.dart';
 import 'package:flutter/material.dart';
 import '../Utils/Utils.dart';
+import '../Utils/clientConfig.dart';
 import 'HomePageScreen.dart';
 import '../Models/User.dart';
+import 'package:http/http.dart' as http;
+
+
 
 const List<String> list1 = <String>['Student', 'Business Owner'];
 const List<String> list2 = <String>['Female', 'Male'];
@@ -38,6 +42,21 @@ class RegisterPageState extends State<RegisterScreen> {
         }
       });
 
+
+
+  Future insertUser(BuildContext context, User us) async {
+
+    var url = "users/insertUser.php?fullName=" + us.fullName + "&email=" + us.email;
+    final response = await http.get(Uri.parse(serverPath + url));
+    print(serverPath + url);
+    setState(() { });
+    Navigator.pop(context);
+  }
+
+
+
+
+
   void insertNewUserFunc() {
     if (_txtfullName.text != "" && _selectedDate != null) {
       User us = new User();
@@ -46,7 +65,7 @@ class RegisterPageState extends State<RegisterScreen> {
       us.phoneNumber = _txtphoneNumber.text;
       us.email = _txtemail.text;
       // us.userID=3;
-      insertUser(us);
+      insertUser(context, us);
       print('Register');
       // Navigator.push(context, MaterialPageRoute(
       //     builder: (context) =>

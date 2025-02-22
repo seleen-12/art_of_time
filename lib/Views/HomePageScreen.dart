@@ -1,7 +1,13 @@
+import 'dart:convert';
+
+import 'package:art_of_time/Views/EditTaskScreen.dart';
 import 'package:flutter/material.dart';
+import '../Models/Task.dart';
+import '../Utils/clientConfig.dart';
 import 'EditProfileScreen.dart';
 import 'HelpPageScreen.dart';
 import 'NewTaskScreen.dart';
+import 'package:http/http.dart' as http;
 
 const List<int> list = <int>[1, 5, 10, 15, 30, 45, 60];
 
@@ -181,49 +187,142 @@ class _DateDetailScreenState extends State<DateDetailScreen> {
       appBar: AppBar(
         title: Text('تفاصيل التاريخ'),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: <Widget>[
-            Text(
-              '${widget.selectedDate.day}/${widget.selectedDate.month}/${widget.selectedDate.year}',
-              style: TextStyle(fontSize: 30),
-            ),
-            SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () async {
-                final newTask = await Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => NewTaskScreen(
-                      title: 'Create New Task',
-                      selectedDate: widget.selectedDate,
-                    ),
-                  ),
-                );
+      // body: Center(
+      //   child: Column(
+      //     mainAxisAlignment: MainAxisAlignment.start,
+      //     children: <Widget>[
+      //       Text(
+      //         '${widget.selectedDate.day}/${widget.selectedDate.month}/${widget.selectedDate.year}',
+      //         style: TextStyle(fontSize: 30),
+      //       ),
+      //       SizedBox(height: 20),
+      //       ElevatedButton(
+      //         onPressed: () async {
+      //           final newTask = await Navigator.push(
+      //             context,
+      //             MaterialPageRoute(
+      //               builder: (context) => NewTaskScreen(
+      //                 title: 'Create New Task',
+      //                 selectedDate: widget.selectedDate,
+      //               ),
+      //             ),
+      //           );
+      //
+      //           if (newTask != null) {
+      //             _addTask(newTask);
+      //           }
+      //         },
+      //         child: Text("+", style: TextStyle(color: Colors.black)),
+      //       ),
+      //       SizedBox(height: 20),
+      //       Expanded(
+      //         child: ListView.builder(
+      //           itemCount: tasks.length,
+      //           itemBuilder: (context, index) {
+      //             return ListTile(
+      //               title: Text('Task ${index + 1}: ${tasks[index].taskName}'),  // إضافة الرقم التسلسلي هنا
+      //               subtitle: Text(
+      //                   'Date: ${tasks[index].taskDate.toString()} | Time: ${tasks[index].taskTime ?? "Not Set"} | Duration: ${tasks[index].duration != null ? "${tasks[index].duration} min" : "Not Set"}'),
+      //             );
+      //           },
+                  body: FutureBuilder(
+                    future: getTasks(),
+                    builder: (context, projectSnap) {
+                      if (projectSnap.hasData) {
+                        if (projectSnap.data.length == 0)
+                        {
+                          return SizedBox(
+                            height: MediaQuery.of(context).size.height * 2,
+                            child: Align(
+                                alignment: Alignment.center,
+                                child: Text('אין תוצאות', style: TextStyle(fontSize: 23, color: Colors.black))
+                            ),
+                          );
+                        }
+                        else {
+                          return Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
 
-                if (newTask != null) {
-                  _addTask(newTask);
-                }
-              },
-              child: Text("+", style: TextStyle(color: Colors.black)),
-            ),
-            SizedBox(height: 20),
-            Expanded(
-              child: ListView.builder(
-                itemCount: tasks.length,
-                itemBuilder: (context, index) {
-                  return ListTile(
-                    title: Text('Task ${index + 1}: ${tasks[index].taskName}'),  // إضافة الرقم التسلسلي هنا
-                    subtitle: Text(
-                        'Date: ${tasks[index].taskDate.toString()} | Time: ${tasks[index].taskTime ?? "Not Set"} | Duration: ${tasks[index].duration != null ? "${tasks[index].duration} min" : "Not Set"}'),
-                  );
-                },
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
+
+                              Expanded(
+                                  child:ListView.builder(
+                                    itemCount: projectSnap.data.length,
+                                    itemBuilder: (context, index) {
+                                      Task project = projectSnap.data[index];
+
+
+                                      return Card(
+                                          child: ListTile(
+                                            // enabled: false,
+                                            onTap: () {
+
+                                              Navigator.push(context, MaterialPageRoute(builder: (context) =>  EditTaskScreen(title: 'Home Page',)));
+
+                                            },
+                                            title: Text(project.taskName!, style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.black),), // Icon(Icons.timer),
+                                            subtitle: Text("" + project.statusID.toString(), style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.black),),
+                                           /*
+                                            trailing: Container(
+                                              decoration: const BoxDecoration(
+                                                color: Colors.blue,
+                                                borderRadius: BorderRadius.all(Radius.circular(5)),
+                                              ),
+                                              padding: const EdgeInsets.symmetric(
+                                                horizontal: 12,
+                                                vertical: 4,
+                                              ),
+                                              child: Text(
+                                                project.totalHours!,   // + "שעות "
+                                                overflow: TextOverflow.ellipsis,
+                                                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white),
+                                              ),
+                                            ),
+*/
+
+                                            isThreeLine: false,
+                                          ));
+                                    },
+                                  )),
+                            ],
+                          );
+                        }
+                      }
+                      else if (projectSnap.hasError)
+                      {
+                        return  Center(child: Text('שגיאה, נסה שוב', style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)));
+                      }
+                      return Center(child: new CircularProgressIndicator(color: Colors.red,));
+                    },
+                  )
+              );
+    //         ),
+    //       ],
+    //     ),
+    //   ),
+    // );
   }
+
+
+
+
+
+
+
+
+  Future getTasks() async {
+
+    var url = "tasks/getTasks.php";
+    final response = await http.get(Uri.parse(serverPath + url));
+    // print(serverPath + url);
+    List<Task> arr = [];
+
+    for(Map<String, dynamic> i in json.decode(response.body)){
+      arr.add(Task.fromJson(i));
+    }
+
+    return arr;
+  }
+
 }
