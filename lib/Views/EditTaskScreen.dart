@@ -85,10 +85,8 @@ class HomePagePageState extends State<EditTaskScreen> {
               SizedBox(height: 20,),
               DropdownMenu<int>(
                 width: 350,
-//              color: _selectedColor,
                 initialSelection: list.first,
                 onSelected: (int? value) {
-                  // This is called when the user selects an item.
                   setState(() {
                     var dropdownValue = value!;
                   });
@@ -98,7 +96,6 @@ class HomePagePageState extends State<EditTaskScreen> {
                   return DropdownMenuEntry<int>(value: value, label: value.toString());
                 }).toList(),
               ),
-
               SizedBox(height: 30,),
               Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                 ElevatedButton(

@@ -1,16 +1,18 @@
+import 'dart:convert';
 import 'dart:io';
-
 import 'package:flutter/material.dart';
-import 'Models/User.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'Models/checkLoginModel.dart';
+import 'Utils/clientConfig.dart';
 import 'Views/HomePageScreen.dart';
 import 'Views/RegisterScreen.dart';
 import 'Utils/Utils.dart';
+import 'package:http/http.dart' as http;
 
 void main() {
   runApp(const MyApp());
 }
 
-var _txtphoneNumber = TextEditingController();
 var _txtpassword = TextEditingController();
 var _txtemail = TextEditingController();
 
@@ -42,47 +44,42 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
 
-  void checkLogin() {
-    if (_txtphoneNumber.text != "" &&_txtpassword.text != "" ) {
-      User us = new User();
-      us.password = _txtpassword.text;
-      us.phoneNumber = _txtphoneNumber.text;
-      // us.userID=3;
-      checkLogin();
-      print('checkLogin');
-      // Navigator.push(context, MaterialPageRoute(
-      //     builder: (context) =>
-      //         HomePageScreen(title: 'Home Page',)));
-      // context:Text(_txtfullName.text +"_"+ _txtpassword.text +""+ _txtphoneNumber.text +""+ _txtemail.text );
-      Navigator.push(context, MaterialPageRoute(builder: (context) =>  HomePageScreen(title: 'Home Page',)));
-    } else {
-      var Uti2 = new Utils();
-      Uti2.showMyDialog(
-          context, "REQUIRED", "You Must Fill The Unanswered Questions");
+
+    Future checkLogin(BuildContext context) async {
+      var url = "login/checkLogin.php?email=" + _txtemail.text + "&password=" +
+          _txtpassword.text;
+      final response = await http.get(Uri.parse(serverPath + url));
+      print(serverPath + url);
+      if (checkLoginModel.fromJson(jsonDecode(response.body)).userID == 0) {
+        var uti = new Utils();
+        uti.showMyDialog(context, "Error", "Email Or Password Is Incorrect");
+      }
+      else {
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+        await prefs.setInt('token', checkLoginModel
+            .fromJson(jsonDecode(response.body))
+            .userID!);
+        Navigator.push(context, MaterialPageRoute(
+            builder: (context) =>
+                HomePageScreen(title: 'Home Page',)));
+      }
     }
-  }
 
-
-  checkConction() async {
+    checkConction() async {
     try {
       final result = await InternetAddress.lookup('google.com');
       if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
-        // print('connected to internet');// print(result);// return 1;
       }
     } on SocketException catch (_) {
-      // print('not connected to internet');// print(result);
       var uti = new Utils();
-      uti.showMyDialog(context, "אין אינטרנט", "האפליקציה דורשת חיבור לאינטרנט, נא להתחבר בבקשה");
+      uti.showMyDialog(context, "NO INTERNET!", "The App Requires An Internet Connection, Please Connect.");
       return;
     }
   }
 
-
   @override
   Widget build(BuildContext context) {
-
     checkConction();
-
     return Scaffold(
         appBar: AppBar(
           title: Text(widget.title),
@@ -125,9 +122,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   children: [
                     ElevatedButton(
                       onPressed: () {
-                        Navigator.push(context, MaterialPageRoute(
-                            builder: (context) =>
-                                HomePageScreen(title: 'Home Page',)));
+                        checkLogin(context);
                       },
                       style: ElevatedButton.styleFrom(minimumSize: Size(350,50)
                       ),

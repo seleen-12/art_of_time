@@ -13,17 +13,6 @@ class Task{
   int userID;
   int statusID;
 
-  /*
-  factory Task.fromJson(Map<String,dynamic>json)=>Task(
-    taskID: json ["taskID"],
-    taskName: json ["taskName"],
-    howLong: json ["howLong"],
-    userID: json ["userID"],
-    statusID: json ["statusID"],
-  );
-   */
-
-
   factory Task.fromJson(Map<String, dynamic> json) {
     return Task(
       taskID: json['taskID'],
@@ -33,7 +22,6 @@ class Task{
       statusID: json ["statusID"],
     );
   }
-
 
   Map<String,dynamic> toJson() => {
     "taskID":taskID,

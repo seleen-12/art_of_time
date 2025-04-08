@@ -19,7 +19,6 @@ class EditProfileScreen extends StatefulWidget {
 
 class HomePagePageState extends State<EditProfileScreen> {
   var _txtfullName = TextEditingController();
-  var _txtphoneNumber = TextEditingController();
   var _txtpassword = TextEditingController();
   var _txtemail = TextEditingController();
 
@@ -40,15 +39,9 @@ class HomePagePageState extends State<EditProfileScreen> {
       User us = new User();
       us.fullName  = _txtfullName .text;
       us.password = _txtpassword.text;
-      us.phoneNumber = _txtphoneNumber.text;
       us.email = _txtemail.text;
-      // us.userID=3;
       insertUser(us);
       print('Register');
-      // Navigator.push(context, MaterialPageRoute(
-      //     builder: (context) =>
-      //         HomePageScreen(title: 'Home Page',)));
-      // context:Text(_txtfullName.text +"_"+ _txtpassword.text +""+ _txtphoneNumber.text +""+ _txtemail.text );
       Navigator.push(context, MaterialPageRoute(builder: (context) =>  HomePageScreen(title: 'Home Page',)));
     } else {
       var Uti2 = new Utils();
@@ -95,7 +88,6 @@ class HomePagePageState extends State<EditProfileScreen> {
               width: 350,
               initialSelection: list2.first,
               onSelected: (String? value) {
-                // This is called when the user selects an item.
                 setState(() {
                   var dropdownValue = value!;
                 });
@@ -110,7 +102,6 @@ class HomePagePageState extends State<EditProfileScreen> {
               width: 350,
               initialSelection: list1.first,
               onSelected: (String? value) {
-                // This is called when the user selects an item.
                 setState(() {
                   var dropdownValue = value!;
                 });
@@ -125,7 +116,6 @@ class HomePagePageState extends State<EditProfileScreen> {
               width: 350,
               initialSelection: list3.first,
               onSelected: (String? value) {
-                // This is called when the user selects an item.
                 setState(() {
                   var dropdownValue = value!;
                 });
@@ -142,7 +132,7 @@ class HomePagePageState extends State<EditProfileScreen> {
                   insertNewUserFunc();
                 },
                 child: Text(
-                  "Register",
+                  "Edit",
                   style: TextStyle(color: Colors.indigo),
                 ),
               ),

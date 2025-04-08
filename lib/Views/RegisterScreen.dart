@@ -1,12 +1,9 @@
-// import 'package:art_of_time/Utils/DB.dart';
 import 'package:flutter/material.dart';
 import '../Utils/Utils.dart';
 import '../Utils/clientConfig.dart';
 import 'HomePageScreen.dart';
 import '../Models/User.dart';
 import 'package:http/http.dart' as http;
-
-
 
 const List<String> list1 = <String>['Student', 'Business Owner'];
 const List<String> list2 = <String>['Female', 'Male'];
@@ -25,7 +22,6 @@ class RegisterPageState extends State<RegisterScreen> {
   get selectedDate => null;
 
   var _txtfullName = TextEditingController();
-  var _txtphoneNumber = TextEditingController();
   var _txtpassword = TextEditingController();
   var _txtemail = TextEditingController();
 
@@ -42,35 +38,24 @@ class RegisterPageState extends State<RegisterScreen> {
         }
       });
 
-
-
   Future insertUser(BuildContext context, User us) async {
 
-    var url = "users/insertUser.php?fullName=" + us.fullName + "&email=" + us.email;
+    var url = "users/insertUser.php?fullName=" + us.fullName + "&email=" + us.email + "&email=" + us.email;
     final response = await http.get(Uri.parse(serverPath + url));
     print(serverPath + url);
     setState(() { });
     Navigator.pop(context);
   }
 
-
-
-
-
   void insertNewUserFunc() {
     if (_txtfullName.text != "" && _selectedDate != null) {
       User us = new User();
       us.fullName  = _txtfullName .text;
       us.password = _txtpassword.text;
-      us.phoneNumber = _txtphoneNumber.text;
       us.email = _txtemail.text;
       // us.userID=3;
       insertUser(context, us);
       print('Register');
-      // Navigator.push(context, MaterialPageRoute(
-      //     builder: (context) =>
-      //         HomePageScreen(title: 'Home Page',)));
-      // context:Text(_txtfullName.text +"_"+ _txtpassword.text +""+ _txtphoneNumber.text +""+ _txtemail.text );
       Navigator.push(context, MaterialPageRoute(builder: (context) =>  HomePageScreen(title: 'Home Page',)));
     } else {
       var Uti2 = new Utils();
@@ -89,10 +74,38 @@ class RegisterPageState extends State<RegisterScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Text("Full Name :", style: TextStyle(fontSize: 20,color: Colors.indigo) ),
-              SizedBox(height: 30,),
+              Text("Email :", style: TextStyle(fontSize: 20,color: Colors.indigo) ),
+              SizedBox(height: 5,),
               Container(
-                  width: 350,
+                  width: 300,
+                  child: TextField(
+                    controller: _txtemail,
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                      hintText: 'Enter Email',
+                    ),
+                  )
+              ),
+              SizedBox(height: 20,),
+
+              Text("Password:", style: TextStyle(fontSize: 20,color: Colors.indigo) ),
+              SizedBox(height: 5,),
+              Container(
+                  width: 300,
+                  child: TextField(
+                    controller: _txtpassword,
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                      hintText: 'Enter Password',
+                    ),
+                  )
+              ),
+              SizedBox(height: 20,),
+
+              Text("Full Name :", style: TextStyle(fontSize: 20,color: Colors.indigo) ),
+              SizedBox(height: 5,),
+              Container(
+                  width: 300,
                   child: TextField(
                     controller: _txtfullName,
                     decoration: InputDecoration(
@@ -101,20 +114,21 @@ class RegisterPageState extends State<RegisterScreen> {
                     ),
                   )
               ),
-              SizedBox(height: 30,),
+              SizedBox(height: 20,),
+
               ElevatedButton(
                 onPressed: () => _selectDate(context),
                 child: const Text('Select Your Birth Date',
                     style: TextStyle(color: Colors.indigo)),
               ),
-              const SizedBox(height: 20),
+              const SizedBox(height: 5),
               Text(
                 'Birth Date : ${_selectedDate != null ? _selectedDate.toString() : 'No Birth Date Selected'}',
                 style: const TextStyle(fontSize: 20, color: Colors.indigo),
               ),
-              SizedBox(height: 30,),
+              SizedBox(height: 20,),
               DropdownMenu<String>(
-                width: 350,
+                width: 300,
                 initialSelection: list2.first,
                 onSelected: (String? value) {
                   // This is called when the user selects an item.
@@ -127,9 +141,9 @@ class RegisterPageState extends State<RegisterScreen> {
                   return DropdownMenuEntry<String>(value: value, label: value);
                 }).toList(),
               ),
-              SizedBox(height: 30,),
+              SizedBox(height: 20,),
               DropdownMenu<String>(
-                width: 350,
+                width: 300,
                 initialSelection: list1.first,
                 onSelected: (String? value) {
                   // This is called when the user selects an item.
@@ -142,9 +156,9 @@ class RegisterPageState extends State<RegisterScreen> {
                   return DropdownMenuEntry<String>(value: value, label: value);
                 }).toList(),
               ),
-              SizedBox(height: 30,),
+              SizedBox(height: 20,),
               DropdownMenu<String>(
-                width: 350,
+                width: 300,
                 initialSelection: list3.first,
                 onSelected: (String? value) {
                   // This is called when the user selects an item.
@@ -157,7 +171,7 @@ class RegisterPageState extends State<RegisterScreen> {
                   return DropdownMenuEntry<String>(value: value, label: value);
                 }).toList(),
               ),
-              SizedBox(height: 30,),
+              SizedBox(height: 10,),
               Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                 ElevatedButton(
                   onPressed: () {

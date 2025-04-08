@@ -107,17 +107,6 @@ class RegisterPageState extends State<NewTaskScreen> {
               ElevatedButton(
                 onPressed: () {
                   if (_taskController.text.isNotEmpty && _selectedDate != null) {
-                    /*
-                    Task newTask = Task(
-                      taskName: _taskController.text,
-                      taskDate: _selectedDate!,
-                      taskTime: _taskTime?.format(context),
-                      duration: _duration,
-                    );
-
-                    Navigator.pop(context, newTask);
-
-                     */
                   }
                 },
                 child: Text(
@@ -140,17 +129,3 @@ class RegisterPageState extends State<NewTaskScreen> {
     );
   }
 }
-/*
-class Task {
-  final String taskName;
-  final DateTime taskDate;
-  final String? taskTime;
-  final int? duration;
-  Task({
-    required this.taskName,
-    required this.taskDate,
-    this.taskTime,
-    this.duration,
-  });
-}
- */
