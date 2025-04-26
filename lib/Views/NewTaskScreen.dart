@@ -41,12 +41,15 @@ class RegisterPageState extends State<NewTaskScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
+        backgroundColor: Colors.deepPurple,
       ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text("The Task :", style: TextStyle(fontSize: 20, color: Colors.indigo)),
+            Icon(Icons.task, color: Colors.deepPurple, size: 50),
+            SizedBox(height: 20),
+            Text("The Task:", style: TextStyle(fontSize: 20, color: Colors.deepPurple)),
             SizedBox(height: 20),
             Container(
               width: 350,
@@ -55,21 +58,25 @@ class RegisterPageState extends State<NewTaskScreen> {
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
                   hintText: 'Enter Your Task',
+                  prefixIcon: Icon(Icons.edit, color: Colors.deepPurple),
                 ),
               ),
             ),
             SizedBox(height: 30),
-            Text("When ?", style: TextStyle(fontSize: 20, color: Colors.indigo)),
+            Text("When?", style: TextStyle(fontSize: 20, color: Colors.deepPurple)),
             SizedBox(height: 10),
             ElevatedButton(
               onPressed: () => _selectDate(context),
-              style: ElevatedButton.styleFrom(minimumSize: Size(350, 50)),
-              child: const Text('Select Your Task Date', style: TextStyle(color: Colors.indigo)),
+              style: ElevatedButton.styleFrom(
+                minimumSize: Size(350, 50),
+                backgroundColor: Colors.deepPurple,
+              ),
+              child: const Text('Select Your Task Date', style: TextStyle(color: Colors.white)),
             ),
             const SizedBox(height: 20),
             Text(
               'Task Date : ${_selectedDate != null ? _selectedDate.toString() : 'No Task Date Selected'}',
-              style: const TextStyle(fontSize: 20, color: Colors.indigo),
+              style: const TextStyle(fontSize: 20, color: Colors.deepPurple),
             ),
             SizedBox(height: 20),
             ElevatedButton(
@@ -84,11 +91,14 @@ class RegisterPageState extends State<NewTaskScreen> {
                   });
                 }
               },
-              style: ElevatedButton.styleFrom(minimumSize: Size(350, 50)),
-              child: Text('Choose Task Time', style: const TextStyle(color: Colors.indigo)),
+              style: ElevatedButton.styleFrom(
+                minimumSize: Size(350, 50),
+                backgroundColor: Colors.deepPurple,
+              ),
+              child: Text('Choose Task Time', style: const TextStyle(color: Colors.white)),
             ),
             SizedBox(height: 30),
-            Text("How Long ?", style: TextStyle(fontSize: 20, color: Colors.indigo)),
+            Text("How Long?", style: TextStyle(fontSize: 20, color: Colors.deepPurple)),
             SizedBox(height: 20),
             DropdownMenu<int>(
               width: 350,
@@ -109,9 +119,12 @@ class RegisterPageState extends State<NewTaskScreen> {
                   if (_taskController.text.isNotEmpty && _selectedDate != null) {
                   }
                 },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.deepPurple,
+                ),
                 child: Text(
                   "Create Task",
-                  style: TextStyle(color: Colors.indigo),
+                  style: TextStyle(color: Colors.white),
                 ),
               ),
               ElevatedButton(
@@ -120,8 +133,13 @@ class RegisterPageState extends State<NewTaskScreen> {
                       builder: (context) =>
                           EditTaskScreen(title: 'Edit Task',)));
                 },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.deepPurple,
+                ),
                 child: Text(
-                  "Edit",style: TextStyle(color: Colors.indigo),),)
+                  "Edit", style: TextStyle(color: Colors.white),
+                ),
+              ),
             ]),
           ],
         ),

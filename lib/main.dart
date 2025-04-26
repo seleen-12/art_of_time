@@ -44,28 +44,27 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
 
-
-    Future checkLogin(BuildContext context) async {
-      var url = "login/checkLogin.php?email=" + _txtemail.text + "&password=" +
-          _txtpassword.text;
-      final response = await http.get(Uri.parse(serverPath + url));
-      print(serverPath + url);
-      if (checkLoginModel.fromJson(jsonDecode(response.body)).userID == 0) {
-        var uti = new Utils();
-        uti.showMyDialog(context, "Error", "Email Or Password Is Incorrect");
-      }
-      else {
-        SharedPreferences prefs = await SharedPreferences.getInstance();
-        await prefs.setInt('token', checkLoginModel
-            .fromJson(jsonDecode(response.body))
-            .userID!);
-        Navigator.push(context, MaterialPageRoute(
-            builder: (context) =>
-                HomePageScreen(title: 'Home Page',)));
-      }
+  Future checkLogin(BuildContext context) async {
+    var url = "login/checkLogin.php?email=" + _txtemail.text + "&password=" +
+        _txtpassword.text;
+    final response = await http.get(Uri.parse(serverPath + url));
+    print(serverPath + url);
+    if (checkLoginModel.fromJson(jsonDecode(response.body)).userID == 0) {
+      var uti = new Utils();
+      uti.showMyDialog(context, "Error", "Email Or Password Is Incorrect");
     }
+    else {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      await prefs.setInt('token', checkLoginModel
+          .fromJson(jsonDecode(response.body))
+          .userID!);
+      Navigator.push(context, MaterialPageRoute(
+          builder: (context) =>
+              HomePageScreen(title: 'Home Page',)));
+    }
+  }
 
-    checkConction() async {
+  checkConction() async {
     try {
       final result = await InternetAddress.lookup('google.com');
       if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
@@ -81,68 +80,108 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     checkConction();
     return Scaffold(
-        appBar: AppBar(
-          title: Text(widget.title),
-        ),
-        body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Text("Email :",
-                  style: TextStyle(fontSize: 20, color: Colors.indigo)),
-              SizedBox(height: 20,),
-              Container(
-                  width: 350,
-                  child: TextField(
-                    controller: _txtemail,
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(),
-                      hintText: 'Enter Email',
-                    ),
-                  )
-              ),
-              SizedBox(height: 40,),
-              Text("Password :",
-                  style: TextStyle(fontSize: 20, color: Colors.indigo)),
-              SizedBox(height: 20,),
-              Container(
-                  width: 350,
-                  child: TextField(
-                    obscureText: true,
-                    controller: _txtpassword,
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(),
-                      hintText: 'Enter Password',
-                    ),
-                  )
-              ),
-              SizedBox(height: 40,),
-              Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    ElevatedButton(
-                      onPressed: () {
-                        checkLogin(context);
-                      },
-                      style: ElevatedButton.styleFrom(minimumSize: Size(350,50)
-                      ),
-                      child: Text(
-                        "Log In", style: TextStyle(color: Colors.indigo, fontSize: 18),),),
-                    SizedBox(height: 10,),
-                    ElevatedButton(
-                      onPressed: () {
-                        Navigator.push(context, MaterialPageRoute(
-                            builder: (context) =>
-                                RegisterScreen(title: 'Register Page',)));
-                      },
-                      style: ElevatedButton.styleFrom(backgroundColor: Colors.transparent, shadowColor: Colors.transparent,),
-                      child:
-                      Text(
-                        "Sign Up", style: TextStyle(color: Colors.black),),),
-                  ]
-              ),
-            ],
+      body: Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('assets/background.jpg'),
+            fit: BoxFit.cover,
           ),
-        ));
+        ),
+        child: Center(
+          child: SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Text(
+                    "Welcome to the App",
+                    style: TextStyle(
+                      fontSize: 30,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.deepPurple,
+                    ),
+                  ),
+                  SizedBox(height: 30),
+                  Text(
+                    "Email :",
+                    style: TextStyle(fontSize: 20, color: Colors.deepPurple),
+                  ),
+                  SizedBox(height: 10),
+                  Container(
+                    width: 350,
+                    child: TextField(
+                      controller: _txtemail,
+                      decoration: InputDecoration(
+                        prefixIcon: Icon(Icons.email, color: Colors.deepPurple),
+                        border: OutlineInputBorder(),
+                        hintText: 'Enter Email',
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 30),
+                  Text(
+                    "Password :",
+                    style: TextStyle(fontSize: 20, color: Colors.deepPurple),
+                  ),
+                  SizedBox(height: 10),
+                  Container(
+                    width: 350,
+                    child: TextField(
+                      obscureText: true,
+                      controller: _txtpassword,
+                      decoration: InputDecoration(
+                        prefixIcon: Icon(Icons.lock, color: Colors.deepPurple),
+                        border: OutlineInputBorder(),
+                        hintText: 'Enter Password',
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 40),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      ElevatedButton(
+                        onPressed: () {
+                          checkLogin(context);
+                        },
+                        style: ElevatedButton.styleFrom(
+                          minimumSize: Size(350, 50), backgroundColor: Colors.deepPurple,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                        ),
+                        child: Text(
+                          "Log In",
+                          style: TextStyle(color: Colors.white, fontSize: 18),
+                        ),
+                      ),
+                      SizedBox(height: 10),
+                      ElevatedButton(
+                        onPressed: () {
+                          Navigator.push(context, MaterialPageRoute(
+                              builder: (context) =>
+                                  RegisterScreen(title: 'Register Page',)));
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.transparent,
+                          shadowColor: Colors.transparent,
+                          side: BorderSide(color: Colors.deepPurple, width: 2),
+                          padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+                        ),
+                        child: Text(
+                          "Sign Up",
+                          style: TextStyle(color: Colors.deepPurple, fontSize: 18),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
   }
 }

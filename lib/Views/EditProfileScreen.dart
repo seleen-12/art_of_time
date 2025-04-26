@@ -34,6 +34,7 @@ class HomePagePageState extends State<EditProfileScreen> {
       setState(() => _selectedDate = selected);
     }
   });
+
   void insertNewUserFunc() {
     if (_txtfullName.text != "" && _selectedDate != null) {
       User us = new User();
@@ -53,92 +54,123 @@ class HomePagePageState extends State<EditProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text(widget.title),
+      appBar: AppBar(
+        backgroundColor: Colors.deepPurple,
+        title: Text(
+          widget.title,
+          style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
         ),
-        body: Center(
+      ),
+      body: SingleChildScrollView(
+        padding: EdgeInsets.all(20),
+        child: Center(
           child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text("Full Name :", style: TextStyle(fontSize: 20,color: Colors.indigo) ),
-            SizedBox(height: 30,),
-            Container(
+            children: <Widget>[
+              Text("Full Name :", style: TextStyle(fontSize: 20, color: Colors.deepPurple, fontWeight: FontWeight.bold)),
+              SizedBox(height: 20),
+              Container(
                 width: 350,
                 child: TextField(
                   controller: _txtfullName,
                   decoration: InputDecoration(
-                    border: OutlineInputBorder(),
                     hintText: 'Enter Full Name',
+                    filled: true,
+                    fillColor: Colors.grey[100],
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.deepPurple),
+                      borderRadius: BorderRadius.circular(12),
+                    ),
                   ),
-                )
-            ),
-            SizedBox(height: 30,),
-            ElevatedButton(
-              onPressed: () => _selectDate(context),
-              child: const Text('Select Your Birth Date',
-                  style: TextStyle(color: Colors.indigo)),
-            ),
-            const SizedBox(height: 20),
-            Text(
-              'Birth Date : ${_selectedDate != null ? _selectedDate.toString() : 'No Birth Date Selected'}',
-              style: const TextStyle(fontSize: 20, color: Colors.indigo),
-            ),
-            SizedBox(height: 30,),
-            DropdownMenu<String>(
-              width: 350,
-              initialSelection: list2.first,
-              onSelected: (String? value) {
-                setState(() {
-                  var dropdownValue = value!;
-                });
-              },
-              dropdownMenuEntries:
-              list2.map<DropdownMenuEntry<String>>((String value) {
-                return DropdownMenuEntry<String>(value: value, label: value);
-              }).toList(),
-            ),
-            SizedBox(height: 30,),
-            DropdownMenu<String>(
-              width: 350,
-              initialSelection: list1.first,
-              onSelected: (String? value) {
-                setState(() {
-                  var dropdownValue = value!;
-                });
-              },
-              dropdownMenuEntries:
-              list1.map<DropdownMenuEntry<String>>((String value) {
-                return DropdownMenuEntry<String>(value: value, label: value);
-              }).toList(),
-            ),
-            SizedBox(height: 30,),
-            DropdownMenu<String>(
-              width: 350,
-              initialSelection: list3.first,
-              onSelected: (String? value) {
-                setState(() {
-                  var dropdownValue = value!;
-                });
-              },
-              dropdownMenuEntries:
-              list3.map<DropdownMenuEntry<String>>((String value) {
-                return DropdownMenuEntry<String>(value: value, label: value);
-              }).toList(),
-            ),
-            SizedBox(height: 30,),
-            Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                ),
+              ),
+              SizedBox(height: 30),
+              ElevatedButton(
+                onPressed: () => _selectDate(context),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.deepPurple,
+                  padding: EdgeInsets.symmetric(horizontal: 24, vertical: 14),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                ),
+                child: const Text(
+                  'Select Your Birth Date',
+                  style: TextStyle(color: Colors.white, fontSize: 16),
+                ),
+              ),
+              SizedBox(height: 20),
+              Text(
+                'Birth Date : ${_selectedDate != null ? _selectedDate.toString() : 'No Birth Date Selected'}',
+                style: const TextStyle(fontSize: 18, color: Colors.deepPurple),
+              ),
+              SizedBox(height: 30),
+              DropdownMenu<String>(
+                width: 350,
+                initialSelection: list2.first,
+                onSelected: (String? value) {
+                  setState(() {
+                    var dropdownValue = value!;
+                  });
+                },
+                dropdownMenuEntries:
+                list2.map<DropdownMenuEntry<String>>((String value) {
+                  return DropdownMenuEntry<String>(value: value, label: value);
+                }).toList(),
+              ),
+              SizedBox(height: 30),
+              DropdownMenu<String>(
+                width: 350,
+                initialSelection: list1.first,
+                onSelected: (String? value) {
+                  setState(() {
+                    var dropdownValue = value!;
+                  });
+                },
+                dropdownMenuEntries:
+                list1.map<DropdownMenuEntry<String>>((String value) {
+                  return DropdownMenuEntry<String>(value: value, label: value);
+                }).toList(),
+              ),
+              SizedBox(height: 30),
+              DropdownMenu<String>(
+                width: 350,
+                initialSelection: list3.first,
+                onSelected: (String? value) {
+                  setState(() {
+                    var dropdownValue = value!;
+                  });
+                },
+                dropdownMenuEntries:
+                list3.map<DropdownMenuEntry<String>>((String value) {
+                  return DropdownMenuEntry<String>(value: value, label: value);
+                }).toList(),
+              ),
+              SizedBox(height: 40),
               ElevatedButton(
                 onPressed: () {
                   insertNewUserFunc();
                 },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.deepPurple,
+                  padding: EdgeInsets.symmetric(horizontal: 40, vertical: 15),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  elevation: 4,
+                ),
                 child: Text(
                   "Edit",
-                  style: TextStyle(color: Colors.indigo),
+                  style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
                 ),
               ),
-            ]),
-          ],
+              SizedBox(height: 30),
+            ],
+          ),
         ),
-        ));
+      ),
+    );
   }
 }
