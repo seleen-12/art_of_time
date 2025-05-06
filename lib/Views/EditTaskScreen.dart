@@ -8,10 +8,10 @@ class EditTaskScreen extends StatefulWidget {
   final String title;
 
   @override
-  State<EditTaskScreen> createState() => HomePagePageState();
+  State<EditTaskScreen> createState() => EditTaskScreenState();
 }
 
-class HomePagePageState extends State<EditTaskScreen> {
+class EditTaskScreenState extends State<EditTaskScreen> {
 
   DateTime? _selectedDate;
 

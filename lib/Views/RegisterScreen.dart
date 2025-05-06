@@ -15,18 +15,13 @@ class RegisterScreen extends StatefulWidget {
   final String title;
 
   @override
-  State<RegisterScreen> createState() => RegisterPageState();
+  State<RegisterScreen> createState() => RegisterScreenState();
 }
 
-class RegisterPageState extends State<RegisterScreen> {
+class RegisterScreenState extends State<RegisterScreen> {
   var _txtfullName = TextEditingController();
   var _txtpassword = TextEditingController();
   var _txtemail = TextEditingController();
-
-  // var _txtgender = TextEditingController();
-  // var _txttype = TextEditingController();
-  // var _txtreligion = TextEditingController();
-  // var _txtbirthDate = TextEditingController();
 
   DateTime? _selectedDate;
   var _gender;
@@ -46,11 +41,10 @@ class RegisterPageState extends State<RegisterScreen> {
 
   Future insertUser(BuildContext context, User us) async {
     var url = "users/insertUser.php?fullName=" + us.fullName + "&email=" + us.email + "&password=" + us.password + "&gender=" + us.gender +
-              "&type=" + us.type + "&religion=" + us.religion + "&birthDate=" + us.birthDate;
+        "&type=" + us.type + "&religion=" + us.religion + "&birthDate=" + us.birthDate;
     final response = await http.get(Uri.parse(serverPath + url));
     print(serverPath + url);
     setState(() {});
-    // Navigator.pop(context);
   }
 
   void insertNewUserFunc() {
@@ -63,7 +57,6 @@ class RegisterPageState extends State<RegisterScreen> {
       us.type = _type;
       us.religion = _religion;
       us.birthDate = _selectedDate.toString();
-
       insertUser(context, us);
       print('Register');
       Navigator.push(context, MaterialPageRoute(builder: (context) =>  HomePageScreen(title: 'Home Page',)));
@@ -182,7 +175,6 @@ class RegisterPageState extends State<RegisterScreen> {
                   value: list1.first,
                   onChanged: (String? newValue) {
                     _type = newValue;
-
                   },
                   items: list1.map<DropdownMenuItem<String>>((String value) {
                     return DropdownMenuItem<String>(

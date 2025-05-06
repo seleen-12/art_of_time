@@ -14,10 +14,10 @@ class EditProfileScreen extends StatefulWidget {
   final String title;
 
   @override
-  State<EditProfileScreen> createState() => HomePagePageState();
+  State<EditProfileScreen> createState() => EditProfileScreenState();
 }
 
-class HomePagePageState extends State<EditProfileScreen> {
+class EditProfileScreenState extends State<EditProfileScreen> {
   var _txtfullName = TextEditingController();
   var _txtpassword = TextEditingController();
   var _txtemail = TextEditingController();

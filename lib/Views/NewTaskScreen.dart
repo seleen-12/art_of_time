@@ -9,10 +9,10 @@ class NewTaskScreen extends StatefulWidget {
   final DateTime? selectedDate;
 
   @override
-  State<NewTaskScreen> createState() => RegisterPageState();
+  State<NewTaskScreen> createState() => NewTaskScreenState();
 }
 
-class RegisterPageState extends State<NewTaskScreen> {
+class NewTaskScreenState extends State<NewTaskScreen> {
   DateTime? _selectedDate;
 
   final TextEditingController _taskController = TextEditingController();

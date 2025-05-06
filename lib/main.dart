@@ -28,21 +28,21 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       debugShowCheckedModeBanner: false,
-      home: const MyHomePage(title: ''),
+      home: const LoginPage(title: ''),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
+class LoginPage extends StatefulWidget {
+  const LoginPage({super.key, required this.title});
 
   final String title;
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<LoginPage> createState() => LoginPageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class LoginPageState extends State<LoginPage> {
 
   Future checkLogin(BuildContext context) async {
     var url = "login/checkLogin.php?email=" + _txtemail.text + "&password=" +

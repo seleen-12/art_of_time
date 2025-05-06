@@ -11,10 +11,10 @@ class HomePageScreen extends StatefulWidget {
   final String title;
 
   @override
-  State<HomePageScreen> createState() => HomePagePageState();
+  State<HomePageScreen> createState() => HomePageState();
 }
 
-class HomePagePageState extends State<HomePageScreen> {
+class HomePageState extends State<HomePageScreen> {
   DateTime _currentMonth = DateTime.now();
   late int _daysInMonth;
   late int _firstDayOfMonth;
