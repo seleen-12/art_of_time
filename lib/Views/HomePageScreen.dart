@@ -90,6 +90,9 @@ class HomePageState extends State<HomePageScreen> {
     return dayWidgets;
   }
 
+
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -194,6 +197,8 @@ class HomePageState extends State<HomePageScreen> {
     );
   }
 
+
+
   Widget _buildWeekDayText(String dayName) {
     return Text(
       dayName,
@@ -204,4 +209,9 @@ class HomePageState extends State<HomePageScreen> {
       ),
     );
   }
+
+
+
+
+
 }

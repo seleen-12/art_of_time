@@ -38,7 +38,7 @@ class DateDetailScreen extends StatelessWidget {
                 child: Align(
                   alignment: Alignment.center,
                   child: Text(
-                    'אין תוצאות',
+                    'אין משימות',
                     style: TextStyle(
                       fontSize: 23,
                       color: Colors.deepPurple,

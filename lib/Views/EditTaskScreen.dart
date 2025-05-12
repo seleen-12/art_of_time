@@ -19,6 +19,10 @@ class EditTaskScreen extends StatefulWidget {
 
 class EditTaskScreenState extends State<EditTaskScreen> {
 
+  var _txtHowLong = TextEditingController();
+  var _txtTaskName = TextEditingController();
+  // var _txtemail = TextEditingController();
+
   DateTime? _selectedDate;
 
   Future _selectDate(BuildContext context) async => showDatePicker(
@@ -35,13 +39,12 @@ class EditTaskScreenState extends State<EditTaskScreen> {
 
 
 
-
-  Future updateMyDetails(BuildContext context, Task us) async {
+  Future updateTask(BuildContext context, Task tas) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var userID = prefs.getInt("token");
 
-    var url = "tasks/updateTask.php?fullName=" + us.fullName + "&email=" + us.email + "&gender=" + us.gender +
-        "&type=" + us.type + "&religion=" + us.religion + "&birthDate=" + us.birthDate+ "&userID=" + userID.toString();
+    var url = "tasks/updateTask.php?howLong=" + tas.howLong.toString() + "&taskName=" + tas.taskName + "&statusID=" + tas.statusID.toString() +  "&userID=" + userID.toString() +
+              "&taskID=" + tas.taskID.toString();
     final response = await http.get(Uri.parse(serverPath + url));
     print(serverPath + url);
     setState(() {});
@@ -150,7 +153,13 @@ class EditTaskScreenState extends State<EditTaskScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Task tas = new Task();
+                    tas.taskName = _txtTaskName.text;
+                    tas.howLong = int.parse(_txtHowLong.text);
+
+                    updateTask(context, tas);
+                  },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.deepPurple,
                   ),
