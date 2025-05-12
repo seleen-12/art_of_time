@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:http/http.dart' as http;
+
 
 class HelpPageScreen extends StatefulWidget {
   const HelpPageScreen({super.key, required this.title});

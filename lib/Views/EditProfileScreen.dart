@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../Models/User.dart';
-import '../Utils/DB.dart';
 import '../Utils/Utils.dart';
+import '../Utils/clientConfig.dart';
 import 'HomePageScreen.dart';
+import 'package:http/http.dart' as http;
+
+
 
 const List<String> list1 = <String>['Student', 'Business Owner'];
 const List<String> list2 = <String>['Female', 'Male'];
 const List<String> list3 = <String>['Islam', 'Hinduism', 'Christianity','Druze','Judaism'];
+
+
 
 class EditProfileScreen extends StatefulWidget {
   const EditProfileScreen({super.key, required this.title});
@@ -19,7 +25,6 @@ class EditProfileScreen extends StatefulWidget {
 
 class EditProfileScreenState extends State<EditProfileScreen> {
   var _txtfullName = TextEditingController();
-  var _txtpassword = TextEditingController();
   var _txtemail = TextEditingController();
 
   DateTime? _selectedDate;
@@ -38,10 +43,14 @@ class EditProfileScreenState extends State<EditProfileScreen> {
   void insertNewUserFunc() {
     if (_txtfullName.text != "" && _selectedDate != null) {
       User us = new User();
-      us.fullName  = _txtfullName .text;
-      us.password = _txtpassword.text;
+      us.fullName = _txtfullName .text;
       us.email = _txtemail.text;
-      insertUser(us);
+      // us.gender = _txtemail.text;
+      // us.type = _txtemail.text;
+      // us.religion = _txtemail.text;
+
+      updateMyDetails(context, us);
+
       print('Register');
       Navigator.push(context, MaterialPageRoute(builder: (context) =>  HomePageScreen(title: 'Home Page',)));
     } else {
@@ -50,6 +59,21 @@ class EditProfileScreenState extends State<EditProfileScreen> {
           context, "REQUIRED", "You Must Fill The Unanswered Questions");
     }
   }
+
+
+
+  Future updateMyDetails(BuildContext context, User us) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var userID = prefs.getInt("token");
+
+    var url = "myProfile/updateMyDetails.php?fullName=" + us.fullName + "&email=" + us.email + "&gender=" + us.gender +
+        "&type=" + us.type + "&religion=" + us.religion + "&birthDate=" + us.birthDate+ "&userID=" + userID.toString();
+    final response = await http.get(Uri.parse(serverPath + url));
+    print(serverPath + url);
+    setState(() {});
+  }
+
+
 
   @override
   Widget build(BuildContext context) {

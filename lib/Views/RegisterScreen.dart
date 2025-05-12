@@ -19,14 +19,15 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class RegisterScreenState extends State<RegisterScreen> {
+
   var _txtfullName = TextEditingController();
   var _txtpassword = TextEditingController();
   var _txtemail = TextEditingController();
-
   DateTime? _selectedDate;
   var _gender;
   var _religion;
   var _type;
+
 
   Future _selectDate(BuildContext context) async => showDatePicker(
     context: context,
@@ -39,6 +40,8 @@ class RegisterScreenState extends State<RegisterScreen> {
     }
   });
 
+
+
   Future insertUser(BuildContext context, User us) async {
     var url = "users/insertUser.php?fullName=" + us.fullName + "&email=" + us.email + "&password=" + us.password + "&gender=" + us.gender +
         "&type=" + us.type + "&religion=" + us.religion + "&birthDate=" + us.birthDate;
@@ -46,6 +49,8 @@ class RegisterScreenState extends State<RegisterScreen> {
     print(serverPath + url);
     setState(() {});
   }
+
+
 
   void insertNewUserFunc() {
     if (_txtfullName.text != "" && _selectedDate != null) {

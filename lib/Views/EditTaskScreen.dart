@@ -1,4 +1,10 @@
+import 'package:art_of_time/Models/Task.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
+import '../Utils/clientConfig.dart';
+
+
 
 const List<int> list = <int>[1, 5, 10, 15, 30, 45, 60];
 
@@ -25,6 +31,24 @@ class EditTaskScreenState extends State<EditTaskScreen> {
       setState(() => _selectedDate = selected);
     }
   });
+
+
+
+
+
+  Future updateMyDetails(BuildContext context, Task us) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var userID = prefs.getInt("token");
+
+    var url = "tasks/updateTask.php?fullName=" + us.fullName + "&email=" + us.email + "&gender=" + us.gender +
+        "&type=" + us.type + "&religion=" + us.religion + "&birthDate=" + us.birthDate+ "&userID=" + userID.toString();
+    final response = await http.get(Uri.parse(serverPath + url));
+    print(serverPath + url);
+    setState(() {});
+  }
+
+
+
 
   @override
   Widget build(BuildContext context) {

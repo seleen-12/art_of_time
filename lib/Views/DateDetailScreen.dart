@@ -5,6 +5,7 @@ import '../Models/Task.dart';
 import '../Utils/clientConfig.dart';
 import 'EditTaskScreen.dart';
 import 'NewTaskScreen.dart';
+import 'package:http/http.dart' as http;
 
 class DateDetailScreen extends StatelessWidget {
   final DateTime selectedDate;

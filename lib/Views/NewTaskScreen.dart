@@ -1,6 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import '../Models/Task.dart';
 import 'EditTaskScreen.dart';
+import 'package:http/http.dart' as http;
+import '../Utils/clientConfig.dart';
+
+
 
 class NewTaskScreen extends StatefulWidget {
   const NewTaskScreen({super.key, required this.title, this.selectedDate});
@@ -35,6 +41,22 @@ class NewTaskScreenState extends State<NewTaskScreen> {
       setState(() => _selectedDate = selected);
     }
   });
+
+
+
+
+  Future insertTask(BuildContext context, Task tas) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var userID = prefs.getInt("token");
+
+    var url = "tasks/insertTask.php?howLong=" + tas.howLong.toString() + "&taskName=" + tas.taskName + "&statusID=1" + "&userID=" + userID.toString();
+    final response = await http.get(Uri.parse(serverPath + url));
+    print(serverPath + url);
+    setState(() {});
+  }
+
+
+
 
   @override
   Widget build(BuildContext context) {
