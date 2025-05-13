@@ -5,6 +5,7 @@ class Task{
     this.howLong = 0,
     this.userID = 0,
     this.statusID = 0,
+    this.dateTime = "",
   });
 
   int taskID;
@@ -12,6 +13,7 @@ class Task{
   int howLong;
   int userID;
   int statusID;
+  String dateTime;
 
   factory Task.fromJson(Map<String, dynamic> json) {
     return Task(

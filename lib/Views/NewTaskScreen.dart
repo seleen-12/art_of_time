@@ -49,10 +49,21 @@ class NewTaskScreenState extends State<NewTaskScreen> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var userID = prefs.getInt("token");
 
-    var url = "tasks/insertTask.php?howLong=" + tas.howLong.toString() + "&taskName=" + tas.taskName + "&statusID=1" + "&userID=" + userID.toString();
+    var url = "tasks/insertTask.php?howLong=" + tas.howLong.toString() + "&taskName=" + tas.taskName +
+              "&statusID=1" + "&userID=" + userID.toString() + "&dateTime=" + tas.dateTime.toString();
     final response = await http.get(Uri.parse(serverPath + url));
     print(serverPath + url);
     setState(() {});
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(
+          'Task Saved successfully',
+          style: TextStyle(color: Colors.deepPurple),
+        ),
+      ),
+    );
+    Navigator.of(context).pop();
   }
 
 
@@ -139,6 +150,11 @@ class NewTaskScreenState extends State<NewTaskScreen> {
               ElevatedButton(
                 onPressed: () {
                   if (_taskController.text.isNotEmpty && _selectedDate != null) {
+                   var tas = new Task();
+                    tas.howLong = _duration!;
+                    tas.taskName = _taskController.text;
+                    tas.dateTime = _selectedDate.toString();
+                    insertTask(context, tas);
                   }
                 },
                 style: ElevatedButton.styleFrom(

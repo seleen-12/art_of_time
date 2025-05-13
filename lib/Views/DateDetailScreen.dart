@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:intl/intl.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../Models/Task.dart';
 import '../Utils/clientConfig.dart';
 import 'EditTaskScreen.dart';
@@ -29,7 +31,7 @@ class DateDetailScreen extends StatelessWidget {
         elevation: 4,
       ),
       body: FutureBuilder(
-        future: getTasks(),
+        future: getTasks(selectedDate),
         builder: (context, projectSnap) {
           if (projectSnap.hasData) {
             if (projectSnap.data.length == 0) {
@@ -38,7 +40,7 @@ class DateDetailScreen extends StatelessWidget {
                 child: Align(
                   alignment: Alignment.center,
                   child: Text(
-                    'אין משימות',
+                    'No Tasks',
                     style: TextStyle(
                       fontSize: 23,
                       color: Colors.deepPurple,
@@ -97,37 +99,7 @@ class DateDetailScreen extends StatelessWidget {
                       ),
                     ),
                     // New Task Button
-                    Padding(
-                      padding: const EdgeInsets.all(12.0),
-                      child: ElevatedButton(
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => NewTaskScreen(
-                                title: 'New Task',
-                                selectedDate: selectedDate,
-                              ),
-                            ),
-                          );
-                        },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.deepPurple,
-                          padding: EdgeInsets.symmetric(vertical: 15, horizontal: 25),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                        ),
-                        child: Text(
-                          'New Task',
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ),
-                    ),
+
                   ],
                 ),
               );
@@ -135,7 +107,7 @@ class DateDetailScreen extends StatelessWidget {
           } else if (projectSnap.hasError) {
             return Center(
               child: Text(
-                'שגיאה, נסה שוב',
+                'Error, try again',
                 style: TextStyle(
                   fontSize: 22,
                   fontWeight: FontWeight.bold,
@@ -152,11 +124,45 @@ class DateDetailScreen extends StatelessWidget {
           );
         },
       ),
+      floatingActionButton: ElevatedButton(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => NewTaskScreen(
+                title: 'New Task',
+                selectedDate: selectedDate,
+              ),
+            ),
+          );
+        },
+        style: ElevatedButton.styleFrom(
+          backgroundColor: Colors.deepPurple,
+          padding: EdgeInsets.symmetric(vertical: 15, horizontal: 25),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+          ),
+        ),
+        child: Text(
+          'New Task',
+          style: TextStyle(
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+          ),
+        ),
+      ),
     );
   }
 
-  Future getTasks() async {
-    var url = "tasks/getTasks.php";
+  Future getTasks(selectedDate) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var userID = prefs.getInt("token");
+    String formattedDate = DateFormat('yyyy-MM-dd').format(selectedDate);
+
+    print("88");
+    var url = "tasks/getTasks.php?userID=" + userID.toString() + "&date=" + formattedDate!.toString();
+    print(serverPath + url);
     final response = await http.get(Uri.parse(serverPath + url));
     List<Task> arr = [];
     for (Map<String, dynamic> i in json.decode(response.body)) {
