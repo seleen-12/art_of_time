@@ -7,7 +7,6 @@ import 'package:http/http.dart' as http;
 import '../Utils/clientConfig.dart';
 
 
-
 class NewTaskScreen extends StatefulWidget {
   const NewTaskScreen({super.key, required this.title, this.selectedDate});
 
@@ -19,8 +18,8 @@ class NewTaskScreen extends StatefulWidget {
 }
 
 class NewTaskScreenState extends State<NewTaskScreen> {
-  DateTime? _selectedDate;
 
+  DateTime? _selectedDate;
   final TextEditingController _taskController = TextEditingController();
   TimeOfDay? _taskTime;
   int? _duration;
@@ -42,9 +41,6 @@ class NewTaskScreenState extends State<NewTaskScreen> {
     }
   });
 
-
-
-
   Future insertTask(BuildContext context, Task tas) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var userID = prefs.getInt("token");
@@ -65,9 +61,6 @@ class NewTaskScreenState extends State<NewTaskScreen> {
     );
     Navigator.of(context).pop();
   }
-
-
-
 
   @override
   Widget build(BuildContext context) {

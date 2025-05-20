@@ -7,25 +7,48 @@ import '../Models/Task.dart';
 import '../Utils/clientConfig.dart';
 import 'EditTaskScreen.dart';
 import 'NewTaskScreen.dart';
-import 'package:http/http.dart' as http;
 
 class DateDetailScreen extends StatelessWidget {
   final DateTime selectedDate;
 
   DateDetailScreen({required this.selectedDate});
 
+  Future<void> openEdit(context, taskID) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setInt('taskID', taskID);
+
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => EditTaskScreen(title: 'Edit Task'),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.deepPurple,
-        title: Text(
-          'Date Details',
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: 22,
-            color: Colors.white,
-          ),
+        title:
+        Column(
+          children: [
+            Text(
+              'Date Details',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 18,
+                color: Colors.white,
+              ),
+            ),
+            Text(
+             selectedDate.day.toString() + "/" +  selectedDate.month.toString() + "/" + selectedDate.year.toString(),
+              style: TextStyle(
+                fontSize: 14,
+                color: Colors.white,
+              ),
+            ),
+          ],
         ),
         centerTitle: true,
         elevation: 4,
@@ -69,37 +92,44 @@ class DateDetailScreen extends StatelessWidget {
                             child: ListTile(
                               contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                               tileColor: Colors.grey[100],
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => EditTaskScreen(title: 'Home Page'),
-                                  ),
-                                );
+                                onTap: () {
+                                   openEdit(context, project.taskID);
                               },
                               title: Text(
-                                "Task ${project.statusID} :",
+                                project.taskName ,
                                 style: TextStyle(
                                   fontSize: 18,
                                   fontWeight: FontWeight.bold,
                                   color: Colors.deepPurple,
                                 ),
                               ),
-                              subtitle: Text(
-                                project.taskName ?? '',
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.normal,
-                                  color: Colors.black87,
-                                ),
+                              subtitle:
+                                  Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start, // aligns children to the left
+                                    children: [
+                                    Text(
+                                    project.statusName ?? '',
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.normal,
+                                      color: Colors.black87,
+                                    ),
+                                    ),
+                                    Text(
+                                      selectedDate.day.toString() + "/" +  selectedDate.month.toString() + "/" + selectedDate.year.toString(),
+                                      style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.normal,
+                                        color: Colors.black87,
+                                      ),
+                                    ),
+                                    ],
                               ),
                             ),
                           );
                         },
                       ),
                     ),
-                    // New Task Button
-
                   ],
                 ),
               );

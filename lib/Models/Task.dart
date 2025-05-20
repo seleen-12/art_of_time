@@ -6,6 +6,8 @@ class Task{
     this.userID = 0,
     this.statusID = 0,
     this.dateTime = "",
+    this.statusName = "",
+
   });
 
   int taskID;
@@ -14,14 +16,18 @@ class Task{
   int userID;
   int statusID;
   String dateTime;
+  String statusName;
 
   factory Task.fromJson(Map<String, dynamic> json) {
     return Task(
       taskID: json['taskID'],
-      taskName: json ["taskName"],
-      howLong: json ["howLong"],
-      userID: json ["userID"],
-      statusID: json ["statusID"],
+      taskName: json["taskName"],
+      howLong: json["howLong"],
+      userID: json["userID"],
+      statusID: json["statusID"],
+      statusName: json["statusName"],
+      dateTime: json["dateTime"],
+
     );
   }
 
@@ -31,5 +37,7 @@ class Task{
     "howLong": howLong,
     "userID": userID,
     "statusID": statusID,
+    "statusName": statusName,
+    "dateTime": dateTime,
   };
 }

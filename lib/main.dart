@@ -81,12 +81,6 @@ class LoginPageState extends State<LoginPage> {
     checkConction();
     return Scaffold(
       body: Container(
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage('assets/background.jpg'),
-            fit: BoxFit.cover,
-          ),
-        ),
         child: Center(
           child: SingleChildScrollView(
             child: Padding(

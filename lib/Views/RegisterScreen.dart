@@ -28,7 +28,6 @@ class RegisterScreenState extends State<RegisterScreen> {
   var _religion;
   var _type;
 
-
   Future _selectDate(BuildContext context) async => showDatePicker(
     context: context,
     initialDate: DateTime.now(),
@@ -40,17 +39,13 @@ class RegisterScreenState extends State<RegisterScreen> {
     }
   });
 
-
-
   Future insertUser(BuildContext context, User us) async {
-    var url = "users/insertUser.php?fullName=" + us.fullName + "&email=" + us.email + "&password=" + us.password + "&gender=" + us.gender +
-        "&type=" + us.type + "&religion=" + us.religion + "&birthDate=" + us.birthDate;
+    var url = "users/insertUser.php?fullName=" + us.fullName! + "&email=" + us.email! + "&password=" + us.password! + "&gender=" + us.gender! +
+        "&type=" + us.type! + "&religion=" + us.religion! + "&birthDate=" + us.birthDate!;
     final response = await http.get(Uri.parse(serverPath + url));
     print(serverPath + url);
     setState(() {});
   }
-
-
 
   void insertNewUserFunc() {
     if (_txtfullName.text != "" && _selectedDate != null) {

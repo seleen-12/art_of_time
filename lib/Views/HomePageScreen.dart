@@ -5,8 +5,6 @@ import 'HelpPageScreen.dart';
 import 'package:http/http.dart' as http;
 import '../Utils/clientConfig.dart';
 
-
-
 const List<int> list = <int>[1, 5, 10, 15, 30, 45, 60];
 
 class HomePageScreen extends StatefulWidget {
@@ -90,9 +88,6 @@ class HomePageState extends State<HomePageScreen> {
     return dayWidgets;
   }
 
-
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -173,13 +168,13 @@ class HomePageState extends State<HomePageScreen> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                _buildWeekDayText('الأحد'),
-                _buildWeekDayText('الإثنين'),
-                _buildWeekDayText('الثلاثاء'),
-                _buildWeekDayText('الأربعاء'),
-                _buildWeekDayText('الخميس'),
-                _buildWeekDayText('الجمعة'),
-                _buildWeekDayText('السبت'),
+                _buildWeekDayText('Sun'),
+                _buildWeekDayText('Mon'),
+                _buildWeekDayText('Tue'),
+                _buildWeekDayText('Wed'),
+                _buildWeekDayText('Thu'),
+                _buildWeekDayText('Fri'),
+                _buildWeekDayText('Sat'),
               ],
             ),
             SizedBox(height: 10),
@@ -197,8 +192,6 @@ class HomePageState extends State<HomePageScreen> {
     );
   }
 
-
-
   Widget _buildWeekDayText(String dayName) {
     return Text(
       dayName,
@@ -209,9 +202,4 @@ class HomePageState extends State<HomePageScreen> {
       ),
     );
   }
-
-
-
-
-
 }

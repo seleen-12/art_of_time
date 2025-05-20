@@ -58,7 +58,6 @@ dev_dependencies:
 flutter_icons:
   android: true
   ios: true
-  image_path: "assets/images/WhatsApp Image 2025-05-06 at 11.24.35.jpeg"
   adaptive_icon_background: "#FFFFFF" # Optional: background color for Android adaptive icons
   adaptive_icon_foreground: "assets/images/WhatsApp Image 2025-05-06 at 11.24.35.jpeg" # Optional: foreground image for Android adaptive icons
   remove_alpha_ios: true # Optional: removes alpha channel from iOS icons

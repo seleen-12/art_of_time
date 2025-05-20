@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../Models/User.dart';
@@ -5,7 +7,6 @@ import '../Utils/Utils.dart';
 import '../Utils/clientConfig.dart';
 import 'HomePageScreen.dart';
 import 'package:http/http.dart' as http;
-
 
 
 const List<String> list1 = <String>['Student', 'Business Owner'];
@@ -26,8 +27,13 @@ class EditProfileScreen extends StatefulWidget {
 class EditProfileScreenState extends State<EditProfileScreen> {
   var _txtfullName = TextEditingController();
   var _txtemail = TextEditingController();
-
+  User? _currUser;
   DateTime? _selectedDate;
+  var _gender;
+  var _religion;
+  var _type;
+
+
 
   Future _selectDate(BuildContext context) async => showDatePicker(
     context: context,
@@ -39,6 +45,9 @@ class EditProfileScreenState extends State<EditProfileScreen> {
       setState(() => _selectedDate = selected);
     }
   });
+
+
+
 
   void insertNewUserFunc() {
     if (_txtfullName.text != "" && _selectedDate != null) {
@@ -66,11 +75,19 @@ class EditProfileScreenState extends State<EditProfileScreen> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var userID = prefs.getInt("token");
 
-    var url = "myProfile/updateMyDetails.php?fullName=" + us.fullName + "&email=" + us.email + "&gender=" + us.gender +
-        "&type=" + us.type + "&religion=" + us.religion + "&birthDate=" + us.birthDate+ "&userID=" + userID.toString();
+    var url = "myProfile/updateMyDetails.php?fullName=" + us.fullName! + "&email=" + us.email! + "&gender=" + us.gender! +
+              "&type=" + us.type! + "&religion=" + us.religion! + "&birthDate=" + us.birthDate! + "&userID=" + userID.toString();
     final response = await http.get(Uri.parse(serverPath + url));
     print(serverPath + url);
     setState(() {});
+  }
+
+
+
+  @override
+  void initState() {
+    super.initState();
+    getMyDetails();
   }
 
 
@@ -137,6 +154,7 @@ class EditProfileScreenState extends State<EditProfileScreen> {
                 onSelected: (String? value) {
                   setState(() {
                     var dropdownValue = value!;
+                    _gender = value;
                   });
                 },
                 dropdownMenuEntries:
@@ -197,4 +215,36 @@ class EditProfileScreenState extends State<EditProfileScreen> {
       ),
     );
   }
+
+
+
+
+  getMyDetails () async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    int? userID = await prefs.getInt('token');
+    var url = "myProfile/getMyDetails.php?userID=$userID";
+    final response = await http.get(Uri.parse(serverPath + url));
+    print(serverPath + url);
+    _currUser = User.fromJson(json.decode(response.body));
+    _txtfullName.text = _currUser!.fullName!;
+    _selectedDate = _currUser!.birthDate! as DateTime?;
+    setState(() { });
+  }
+
+
+
+  editUser(context) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    int? token = await prefs.getInt('token');
+
+    User us = new User();
+    us.fullName = _txtfullName.text;
+    us.email = _txtemail.text;
+    us.gender = _gender;
+    us.type = _type;
+    us.religion = _religion;
+
+    updateMyDetails(context, us);
+  }
+
 }
