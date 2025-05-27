@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../Models/User.dart';
@@ -26,7 +25,7 @@ class EditProfileScreen extends StatefulWidget {
 
 class EditProfileScreenState extends State<EditProfileScreen> {
   var _txtfullName = TextEditingController();
-  var _txtemail = TextEditingController();
+  // var _txtemail = TextEditingController();
   User? _currUser;
   DateTime? _selectedDate;
   var _gender;
@@ -50,10 +49,10 @@ class EditProfileScreenState extends State<EditProfileScreen> {
 
 
   void insertNewUserFunc() {
-    if (_txtfullName.text != "" && _selectedDate != null) {
+    if (_txtfullName.text != "") {      //  && _selectedDate != null
       User us = new User();
       us.fullName = _txtfullName .text;
-      us.email = _txtemail.text;
+      // us.email = _txtemail.text;
       // us.gender = _txtemail.text;
       // us.type = _txtemail.text;
       // us.religion = _txtemail.text;
@@ -75,8 +74,8 @@ class EditProfileScreenState extends State<EditProfileScreen> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var userID = prefs.getInt("token");
 
-    var url = "myProfile/updateMyDetails.php?fullName=" + us.fullName! + "&email=" + us.email! + "&gender=" + us.gender! +
-              "&type=" + us.type! + "&religion=" + us.religion! + "&birthDate=" + us.birthDate! + "&userID=" + userID.toString();
+    var url = "myProfile/updateMyDetails.php?fullName=" + us.fullName! + "&gender=" + _gender! +
+              "&type=" + _type! + "&religion=" + _religion! + "&userID=" + userID.toString();
     final response = await http.get(Uri.parse(serverPath + url));
     print(serverPath + url);
     setState(() {});
@@ -155,8 +154,12 @@ class EditProfileScreenState extends State<EditProfileScreen> {
                   setState(() {
                     var dropdownValue = value!;
                     _gender = value;
+                    print("gender:" + _gender);
                   });
                 },
+                // onChanged: (String? newValue) {
+                //   _gender = newValue;
+                // },
                 dropdownMenuEntries:
                 list2.map<DropdownMenuEntry<String>>((String value) {
                   return DropdownMenuEntry<String>(value: value, label: value);
@@ -169,6 +172,8 @@ class EditProfileScreenState extends State<EditProfileScreen> {
                 onSelected: (String? value) {
                   setState(() {
                     var dropdownValue = value!;
+                    _type = value;
+                    print("_type:" + _type);
                   });
                 },
                 dropdownMenuEntries:
@@ -178,11 +183,14 @@ class EditProfileScreenState extends State<EditProfileScreen> {
               ),
               SizedBox(height: 30),
               DropdownMenu<String>(
+                // controller: _txtReligion,
                 width: 350,
                 initialSelection: list3.first,
                 onSelected: (String? value) {
                   setState(() {
                     var dropdownValue = value!;
+                    _religion = value;
+                    print("_religion:" + _religion);
                   });
                 },
                 dropdownMenuEntries:
@@ -227,19 +235,21 @@ class EditProfileScreenState extends State<EditProfileScreen> {
     print(serverPath + url);
     _currUser = User.fromJson(json.decode(response.body));
     _txtfullName.text = _currUser!.fullName!;
-    _selectedDate = _currUser!.birthDate! as DateTime?;
+    _gender = _currUser!.gender!;
+    _gender = _currUser!.gender!;
+    _gender = _currUser!.gender!;
+
+    // _selectedDate = _currUser!.birthDate! as DateTime?;
     setState(() { });
   }
 
 
 
   editUser(context) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    int? token = await prefs.getInt('token');
 
     User us = new User();
     us.fullName = _txtfullName.text;
-    us.email = _txtemail.text;
+    // us.email = _txtemail.text;
     us.gender = _gender;
     us.type = _type;
     us.religion = _religion;

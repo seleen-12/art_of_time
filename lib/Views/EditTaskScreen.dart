@@ -64,23 +64,6 @@ class EditTaskScreenState extends State<EditTaskScreen> {
     super.initState();
     getTaskDetails();
 
-    fetchStatuses().then((statuses) {
-      setState(() {
-        _statuses = statuses;
-
-        // _selectedStatus =
-        // _selectedStatus = _statuses.firstWhere(
-        //       (status) => status.statusID == '3',
-        //   orElse: () => _statuses.first, // fallback
-        // );
-        _selectedStatus?.statusID = _currTask!.statusID;
-        _selectedStatus?.statusName = _currTask!.statusName;
-
-      });
-    });
-
-
-
   }
 
   getTaskDetails () async {
@@ -95,10 +78,36 @@ class EditTaskScreenState extends State<EditTaskScreen> {
     setState(() {
       _txtTaskName.text = _currTask!.taskName;
       _txtHowLong.text = _currTask!.howLong.toString();
-      // _selectedStatus = new Status();
-      _selectedStatus?.statusID = _currTask!.statusID;
-      _selectedStatus?.statusName = _currTask!.statusName;
 
+
+      fetchStatuses().then((statuses) {
+        setState(() {
+          _statuses = statuses;
+
+          if(_currTask!.statusID == 1)
+          {
+            _selectedStatus = _statuses.firstWhere(
+                  (status) => status.statusID == 1,
+              orElse: () => _statuses.first, // fallback
+            );
+          }
+          else if(_currTask!.statusID == 2)
+          {
+            _selectedStatus = _statuses.firstWhere(
+                  (status) => status.statusID == 2,
+              orElse: () => _statuses.first, // fallback
+            );
+          }
+          else if(_currTask!.statusID == 3)
+          {
+            _selectedStatus = _statuses.firstWhere(
+                  (status) => status.statusID == 3,
+              orElse: () => _statuses.first, // fallback
+            );
+          }
+
+        });
+      });
     });
   }
 
@@ -118,16 +127,7 @@ class EditTaskScreenState extends State<EditTaskScreen> {
 
 
   Future<List<Status>> fetchStatuses() async {
-    // final response = await http.get(Uri.parse('http://yourdomain.com/statuses.php'));
     var url = "statuses/getStatuses.php";
-
-    // if (response.statusCode == 200) {
-    //   List jsonData = json.decode(response.body);
-    //   return jsonData.map((item) => Status.fromJson(item)).toList();
-    // } else {
-    //   throw Exception('Failed to load statuses');
-    // }
-
     print(serverPath + url);
     final response = await http.get(Uri.parse(serverPath + url));
     List<Status> arr = [];
@@ -172,54 +172,54 @@ class EditTaskScreenState extends State<EditTaskScreen> {
               ),
             ),
             SizedBox(height: 30),
-            Text(
-              "When?",
-              style: TextStyle(fontSize: 20, color: Colors.deepPurple),
-            ),
-            SizedBox(height: 10),
-            ElevatedButton(
-              onPressed: () => _selectDate(context),
-              style: ElevatedButton.styleFrom(
-                minimumSize: Size(350, 50),
-                backgroundColor: Colors.deepPurple,
-              ),
-              child: const Text(
-                'Select Your Task Date',
-                style: TextStyle(color: Colors.white),
-              ),
-            ),
-            const SizedBox(height: 20),
-            Text(
-              'Task Date : ${_selectedDate != null ? _selectedDate.toString() : 'No Task Date Selected'}',
-              style: const TextStyle(fontSize: 20, color: Colors.deepPurple),
-            ),
-            SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () async {
-                TimeOfDay? picked = await showTimePicker(
-                  context: context,
-                  initialTime: TimeOfDay.now(),
-                );
-                if (picked != null) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text(
-                        'Picked Time: ${picked.format(context)}',
-                        style: TextStyle(color: Colors.deepPurple),
-                      ),
-                    ),
-                  );
-                }
-              },
-              style: ElevatedButton.styleFrom(
-                minimumSize: Size(350, 50),
-                backgroundColor: Colors.deepPurple,
-              ),
-              child: Text(
-                'Choose Task Time',
-                style: const TextStyle(color: Colors.white),
-              ),
-            ),
+            // Text(
+            //   "When?",
+            //   style: TextStyle(fontSize: 20, color: Colors.deepPurple),
+            // ),
+            // SizedBox(height: 10),
+            // ElevatedButton(
+            //   onPressed: () => _selectDate(context),
+            //   style: ElevatedButton.styleFrom(
+            //     minimumSize: Size(350, 50),
+            //     backgroundColor: Colors.deepPurple,
+            //   ),
+            //   child: const Text(
+            //     'Select Your Task Date',
+            //     style: TextStyle(color: Colors.white),
+            //   ),
+            // ),
+            // const SizedBox(height: 20),
+            // Text(
+            //   'Task Date : ${_selectedDate != null ? _selectedDate.toString() : 'No Task Date Selected'}',
+            //   style: const TextStyle(fontSize: 20, color: Colors.deepPurple),
+            // ),
+            // SizedBox(height: 20),
+            // ElevatedButton(
+            //   onPressed: () async {
+            //     TimeOfDay? picked = await showTimePicker(
+            //       context: context,
+            //       initialTime: TimeOfDay.now(),
+            //     );
+            //     if (picked != null) {
+            //       ScaffoldMessenger.of(context).showSnackBar(
+            //         SnackBar(
+            //           content: Text(
+            //             'Picked Time: ${picked.format(context)}',
+            //             style: TextStyle(color: Colors.deepPurple),
+            //           ),
+            //         ),
+            //       );
+            //     }
+            //   },
+            //   style: ElevatedButton.styleFrom(
+            //     minimumSize: Size(350, 50),
+            //     backgroundColor: Colors.deepPurple,
+            //   ),
+            //   child: Text(
+            //     'Choose Task Time',
+            //     style: const TextStyle(color: Colors.white),
+            //   ),
+            // ),
             SizedBox(height: 30),
             Text(
               "How Long ?",
